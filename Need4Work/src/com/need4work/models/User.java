@@ -1,5 +1,7 @@
 package com.need4work.models;
 
+import java.util.EnumSet;
+
 public abstract class User {
 	
 	//FIELDS
@@ -8,6 +10,11 @@ public abstract class User {
 	private String password;
 	private int id;
 	
+	private static enum Competences{
+		Elettricista,
+		Idraulico,
+		Giardiniere
+	}
 	/*
 	 * Nome
 	 * Cognome
@@ -19,7 +26,7 @@ public abstract class User {
 	 * Cellulare
 	 */
 	private String[] profile;
-	
+	private EnumSet<Competences> competences;
 	
 	//GLOBALS
 	private static int globalId; //Global top id
