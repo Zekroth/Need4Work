@@ -26,15 +26,17 @@ public abstract class User {
 	 * Cellulare
 	 */
 	private String[] profile;
-	private EnumSet<Competences> competences;
+	private EnumSet<User.Competences> competences;
 	
 	//GLOBALS
 	private static int globalId; //Global top id
 	public static boolean Init() {
 		//Retrieves data from DB in order to get things started
+		
 		return false;
 	}
 	//CONSTRUCTORS
 	
 	//METHODS
+	
 }
