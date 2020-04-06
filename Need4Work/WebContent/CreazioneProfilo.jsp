@@ -15,7 +15,7 @@
 		<input type="radio" id="userType" name="userType" value="inserzionista" required>
 		<label for="userType">Inserzionista</label><br>
 		<input type="radio" id="userType" name="userType" value="professionista" required>
-		<label for="female">Professionista</label><br>
+		<label for="userType">Professionista</label><br>
 		
 		<input type="submit" value="Submit" />
 	</form>
