@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Scrivi recensione</title>
+</head>
+<body>
+<h1>Lascia la tua recensione</h1>
+<form method="POST" action="InviaRecensione">
+	Titolo <input type="text" name="titolo" required></br>
+	Commento <input type="text" name="commento" required></br>
+	Valutazione 
+	<input type="radio" id="valutazione" name="valutazione" value="1" required>
+	<label for="valutazione">1</label>
+	<input type="radio" id="valutazione" name="valutazione" value="2" required>
+	<label for="valutazione">2</label>
+	<input type="radio" id="valutazione" name="valutazione" value="3" required>
+	<label for="valutazione">3</label>
+	<input type="radio" id="valutazione" name="valutazione" value="4" required>
+	<label for="valutazione">4</label>
+	<input type="radio" id="valutazione" name="valutazione" value="5" required>
+	<label for="valutazione">5</label></br>
+	<input type="submit" value="Invia recensione">
+</form>
+</body>
+</html>
