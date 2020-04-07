@@ -8,7 +8,9 @@
 <h1>Lascia la tua recensione</h1>
 <form method="POST" action="InviaRecensione">
 	Titolo <input type="text" name="titolo" required></br>
-	Commento <input type="text" name="commento" required></br>
+	<label for="commento">Commento</label></br>
+	<textarea rows="5" id="commento" name="commento" required></textarea>
+	</br>
 	Valutazione 
 	<input type="radio" id="valutazione" name="valutazione" value="1" required>
 	<label for="valutazione">1</label>
