@@ -8,11 +8,9 @@
 <h1>Lascia la tua recensione</h1>
 <form method="POST" th:action="@{/scriviRecensione}" th:object="${scriviRecensioneForm}">
 	Titolo <input type="text" th:field="*{titolo}"></br>
-<<<<<<< HEAD
 	<label for="commento">Commento</label></br><textarea rows="5" id="commento" name="commento" placeholder="Scrivi qui la tua recensione..." required></textarea>
-=======
+
 	<label for="commento">Commento</label></br>
->>>>>>> branch 'master' of https://github.com/Zekroth/Need4Work.git
 	<textarea rows="5" id="commento" th:field="*{commento}"></textarea>
 	</br>
 	Valutazione 
