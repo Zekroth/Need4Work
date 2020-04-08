@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
 <title>Creazione inserzione</title>
 </head>
 <body>
 <h1>Crea la tua inserzione</h1>
-<form method="POST" action="CreateJob">
+<form method="POST" th:action="@{/creazioneInserzione}" th:object="${creazioneInserzioneForm}">
 	<table>
-		<tr><td>Titolo</td><td><input type="text" name="titolo" required></td></tr>
-		<tr><td>Descrizione</td><td><input type="text" name="descrizione" required></td></tr>
-		<tr><td>Importo massimo</td><td><input type="text" name="importoMax" required></td></tr>
-		<tr><td>Data fine asta</td><td><input type="date" name="dataFine" required></td></tr>
+		<tr><td>Titolo</td><td><input type="text" th:field="*{titolo}"></td></tr>
+		<tr><td><label for="descrizione">Descrizione</label></td><td><textarea rows="5" id="descrizione" th:field="*{descrizione}"></textarea></td></tr>
+		<tr><td>Importo massimo</td><td><input type="text" th:field="*{importoMax}"></td></tr>
+		<tr><td>Data fine asta</td><td><input type="date" th:field="*{dataFine}"></td></tr>
 		<tr><td></td><td><input type="submit" value="Pubblica inserzione"></td></tr>
 	</table>
 </form>
