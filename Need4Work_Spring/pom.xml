@@ -5,7 +5,7 @@
     <groupId>it.itsrizzoli</groupId>
     <artifactId>Spring</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>Spring Boot Blank Project (from https://github.com/making/spring-boot-blank)</name>
 
@@ -22,9 +22,23 @@
         <lombok.version>1.14.8</lombok.version>
         <log4jdbc.log4j2.version>1.16</log4jdbc.log4j2.version>
         <rest.assured.version>2.3.3</rest.assured.version>
+        <spring-version>5.2.5.RELEASE</spring-version>
     </properties>
 
     <dependencies>
+    	<dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		   </dependency>
+    	
+    	<dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-web</artifactId>
+    	</dependency>
+    	<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -33,6 +47,56 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
+        <dependency>
+         <!-- Spring beans -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-beans</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring context -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring context support -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context-support</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring Core -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-core</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring Data JPA -->
+         <groupId>org.springframework.data</groupId>
+         <artifactId>spring-data-jpa</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring JDBC -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-jdbc</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring OXM -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-oxm</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring transactions -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-tx</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring Web MVC -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-webmvc</artifactId>
+      </dependency>
+      <dependency>
+         <!-- Spring ORM -->
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-orm</artifactId>
+      </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -74,6 +138,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            
         </plugins>
     </build>
 

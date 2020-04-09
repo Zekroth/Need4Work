@@ -1,6 +1,9 @@
 package it.itsrizzoli.Spring;
 
 import com.jayway.restassured.RestAssured;
+
+import it.itsrizzoli.Spring.models.App;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

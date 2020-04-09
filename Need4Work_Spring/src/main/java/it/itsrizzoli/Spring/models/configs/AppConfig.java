@@ -1,4 +1,4 @@
-package it.itsrizzoli.Spring;
+package it.itsrizzoli.Spring.models.configs;
 
 import net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy;
 import org.springframework.beans.factory.annotation.Autowired;

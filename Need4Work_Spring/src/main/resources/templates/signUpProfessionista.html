@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Creazione profilo</title>
+</head>
+<body>
+<form method="POST" action="CreaProfessionista">
+	Nome <input type="text" name="nome" required></br>
+	Cognome <input type="text" name="cognome" required></br>
+	Data di nascita <input type="date" name="dataNascita" required></br>
+	Via <input type="text" name="via" required> CAP <input type="text" name="cap" required></br>
+	Paese <input type="text" name="nome" required> Provincia <input type="text" name="provincia" required></br>
+	Email <input type="email" name="email" required></br>
+	Cellulare <input type="text" name="cellulare" required></br>
+	Password <input type="password" name="password" required></br>
+	<fieldset>
+		<legend>Competenze</legend>
+		<input type="checkbox" id="idraulico" name="competenza" value="idraulico">
+		<label for="idraulico">idraulico</label>
+		<input type="checkbox" id="elettricista" name="competenza" value="elettricista">
+		<label for="elettricista">elettricista</label>
+		<input type="checkbox" id="bricolage" name="competenza" value="bricolage">
+		<label for="bricolage">bricolage</label>
+		<input type="checkbox" id="giardinaggio" name="competenza" value="giardinaggio">
+		<label for="giardinaggio">giardinaggio</label>
+		<input type="checkbox" id="insegnante" name="competenza" value="insegnante">
+		<label for="insegnante">insegnante</label>
+	</fieldset>
+	<input type="submit" value="Registrati">
+</form>
+</body>
+</html>
+
+
