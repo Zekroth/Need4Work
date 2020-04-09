@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>Asta accettata</title>
+</head>
+<body>
+<p th:text="${titoloInserzione}"/>
+<p th:text="${descrizioneInserzione}"/>
+<p th:text="'Email: '+${emailProfessionista}"/>
+<p th:text="'Cellulare: '+${cellulareProfessionista}"/>
+</br>
+<a href="/profiloProfessionista"><button>Visita profilo</button>
+</body>
+</html>
