@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>Modifica account</title>
+</head>
+<body>
+<h1>
+<p align="center">Modifica account</p>
+</h1>
+<form class="form-horizontal" method="POST" th:action="@{/modificaProfiloInserzionista}" th:object="${modificaProfiloInserzionistaForm}">
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="nome">Nome </label>
+			<div class="col-sm-8">	
+				<input class="form-control" type="text" th:field="*{nome}" th:attr="value=${inserzionista.nome}" required>
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="cognome">Cognome </label>
+			<div class="col-sm-8">	
+				<input class="form-control" type="text" th:field="*{cognome}" th:attr="value=${inserzionista.cognome}" required>
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="via">Via </label>
+			<div class="col-sm-8">	
+				<input class="form-control" type="text" th:field="*{via}" th:attr="value=${inserzionista.via}" required>
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="cap">CAP </label>
+			<div class="col-sm-1">	
+				<input class="form-control" type="text" th:field="*{cap}" th:attr="value=${inserzionista.cap}" required>
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="paese">Paese </label>
+			<div class="col-sm-8">	
+				<input class="form-control" type="text" th:field="*{paese}" th:attr="value=${inserzionista.paese}" required>
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="provincia">Provincia </label>
+			<div class="col-sm-1">	
+				<input class="form-control" type="text" th:field="*{provincia}" th:attr="value=${inserzionista.provincia}" required>
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="email">Email </label>
+			<div class="col-sm-8">	
+				<input class="form-control" type="email" th:field="*{email}" th:attr="value=${inserzionista.email}" required>
+			</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2" for="cellulare">Cellulare </label>
+			<div class="col-sm-8">	
+				<input class="form-control" type="text" th:field="*{cellulare}" th:attr="value=${inserzionista.cellulare}" required>
+			</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">Modifica</button>
+		</div>
+	</div>
+</form>
+</body>
+</html>
