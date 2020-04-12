@@ -1,19 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <meta charset="ISO-8859-1">
 <title>Creazione inserzione</title>
 </head>
 <body>
-<h1>Crea la tua inserzione</h1>
-<form method="POST" th:action="@{/creazioneInserzione}" th:object="${creazioneInserzioneForm}">
-	<table>
-		<tr><td>Titolo</td><td><input type="text" th:field="*{titolo}"></td></tr>
-		<tr><td><label for="descrizione">Descrizione</label></td><td><textarea rows="5" id="descrizione" th:field="*{descrizione}"></textarea></td></tr>
-		<tr><td>Importo massimo</td><td><input type="text" th:field="*{importoMax}"></td></tr>
-		<tr><td>Data fine asta</td><td><input type="date" th:field="*{dataFine}"></td></tr>
-		<tr><td></td><td><input type="submit" value="Pubblica inserzione"></td></tr>
-	</table>
+<h1>
+<p align="center">Crea la tua inserzione</p>
+</h1>
+<form class="form-horizontal" role="form" method="POST" th:action="@{/creazioneInserzione}" th:object="${creazioneInserzioneForm}">
+     <div class="form-group">
+		<label class="control-label col-sm-2">Titolo</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" th:field="*{titolo}">
+			<p th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Descrizione</label>
+		<div class="col-sm-8">
+			<textarea class="form-control" rows="3" id="descrizione" th:field="*{descrizione}"></textarea>
+			<p th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Importo massimo</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="text" th:field="*{importoMax}">
+			<p th:if="${#fields.hasErrors('importoMax')}" th:errors="*{importoMax}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Categoria lavoro</label>
+		<div class="col-sm-8">
+		<select class="form-control" id="sel1" required>
+	        <option>Giardinaggio</option>
+	        <option>Elettricista</option>
+	        <option>Idraulico</option>
+	        <option>Bricolage</option>
+	        <option>Insegnante</option>
+      	</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Data fine asta</label>
+		<div class="col-sm-8">
+			<input class="form-control" type="date" th:field="*{dataFine}">
+			<p th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}" />
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default">Pubblica inserzione</button>
+		</div>
+	</div>
 </form>
 </body>
 </html>
