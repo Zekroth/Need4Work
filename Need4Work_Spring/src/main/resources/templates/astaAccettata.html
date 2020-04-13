@@ -6,10 +6,10 @@
 <title>Asta accettata</title>
 </head>
 <body>
-<p th:text="${titoloInserzione}"/>
-<p th:text="${descrizioneInserzione}"/>
-<p th:text="'Email: '+${emailProfessionista}"/>
-<p th:text="'Cellulare: '+${cellulareProfessionista}"/>
+<p th:text="${Inserzione.titolo}"/>
+<p th:text="${Inserzione.descrizione}"/>
+<p th:text="'Email: '+${Professionista.email}"/>
+<p th:text="'Cellulare: '+${Professionista.cellulare}"/>
 </br>
 <a href="/profiloProfessionista"><button>Visita profilo</button>
 </body>
