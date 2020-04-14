@@ -1,4 +1,4 @@
-package it.iftsrizzoli.interfaces;
+package it.itsrizzoli.N4W.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-import it.iftsrizzoli.models.CD;
 
 public interface DBHandler {
 	
