@@ -47,84 +47,84 @@ public class utente {
 	@Size(min = 5, max = 5)
 	int cap;
 
-	public String getEmail() {
-	return email;
-	}
-
-	public void setEmail(String email) {
-	this.email = email;
-	}
-
-	public String getPassword() {
-	return password;
-	}
-
-	public void setPassword(String password) {
-	this.password = password;
-	}
-
-	public Date getData_nascita() {
-	return data_nascita;
-	}
-
-	public void setData_nascita(Date data_nascita) {
-	this.data_nascita = data_nascita;
-	}
-
 	public String getNome() {
-	return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-	Nome = nome;
+		this.nome = nome;
 	}
 
 	public String getCognome() {
-	return Cognome;
+		return cognome;
 	}
 
 	public void setCognome(String cognome) {
-	Cognome = cognome;
+		this.cognome = cognome;
+	}
+
+	public Date getDatanascita() {
+		return datanascita;
+	}
+
+	public void setDatanascita(Date datanascita) {
+		this.datanascita = datanascita;
 	}
 
 	public String getVia() {
-	return Via;
+		return via;
 	}
 
 	public void setVia(String via) {
-	Via = via;
-	}
-
-	public String getCAP() {
-	return CAP;
-	}
-
-	public void setCAP(String cAP) {
-	CAP = cAP;
+		this.via = via;
 	}
 
 	public String getPaese() {
-	return Paese;
+		return paese;
 	}
 
 	public void setPaese(String paese) {
-	Paese = paese;
+		this.paese = paese;
 	}
 
 	public String getProvincia() {
-	return Provincia;
+		return provincia;
 	}
 
 	public void setProvincia(String provincia) {
-	Provincia = provincia;
+		this.provincia = provincia;
 	}
 
-	public String getCellulare() {
-	return Cellulare;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setCellulare(String cellulare) {
-	Cellulare = cellulare;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getCellulare() {
+		return cellulare;
+	}
+
+	public void setCellulare(int cellulare) {
+		this.cellulare = cellulare;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getCap() {
+		return cap;
+	}
+
+	public void setCap(int cap) {
+		this.cap = cap;
 	}
 
 }
