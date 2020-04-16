@@ -7,16 +7,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.itsrizzoli.N4W.models.LoginForm;
+import it.itsrizzoli.N4W.models.SignUpInserzionistaForm;
+import it.itsrizzoli.N4W.models.SignUpProfessionistaForm;
+
 @Controller
 public class LoginSignupController {
 	
 	@GetMapping("/signUpInserzionista")
-	public String signUpInserzionista(LoginSignupController loginSignupController) {
+	public String signUpInserzionista(SignUpInserzionistaForm signUpInserzionistaForm) {
 		return "signUpInserzionista";
 	}
 	
 	@PostMapping("/signUpInserzionista")
-	public String postSignUpInserzionista(@Valid LoginSignupController loginSignupController, BindingResult res) {
+	public String postSignUpInserzionista(@Valid SignUpInserzionistaForm signUpInserzionistaForm, BindingResult res) {
 		if (res.hasErrors())
 			return "signUpInserzionista";
 		
