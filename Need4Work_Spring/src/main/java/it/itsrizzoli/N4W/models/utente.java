@@ -2,49 +2,50 @@ package it.itsrizzoli.N4W.models;
 
 import java.sql.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
 
 public class utente {
 	
 	@NotNull
+	@Size(min = 3, max = 100)
+	String nome;
+	
+	@NotNull
+	@Size(min = 3, max = 100)
+	String cognome;
+	
+	@NotNull
+	Date datanascita;
+	
+	@NotNull
+	@Size(min = 3, max = 300)
+	String via;
+	
+	@NotNull
+	@Size(min = 3, max = 100)
+	String paese;
+	
+	@NotNull
+	@Size(min = 2, max = 2)
+	String provincia;
+	
+	@NotNull
+	@Size(min = 3, max = 300)
 	@Email
 	String email; //chiave primaria
-
+	
+	@Size(min = 9, max = 10)
+	int cellulare;
+	
 	@NotNull
-	@Size(min=8, max=512)
+	@Size(min = 8, max = 20)
 	String password;
-
-	Date data_nascita;
-
+	
 	@NotNull
-	@Size(min=2, max=45)
-	String Nome;
-
-	@NotNull
-	@Size(min=2, max=45)
-	String Cognome;
-
-	@NotNull
-	@Size(min=2, max=100)
-	String Via;
-
-	@NotNull
-	@Size(min=5, max=5)
-	String CAP;
-
-	@NotNull
-	@Size(min=2, max=45)
-	String Paese;
-
-	@NotNull
-	@Size(min=2, max=2)
-	String Provincia;
-
-	@Size(min=9, max=15)
-	String Cellulare;
+	@Size(min = 5, max = 5)
+	int cap;
 
 	public String getEmail() {
 	return email;
