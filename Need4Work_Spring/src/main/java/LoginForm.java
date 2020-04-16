@@ -6,10 +6,11 @@ public class LoginForm {
 	
 	@NotNull
 	@Email
+	@Size(min = 3, max = 300)
 	String email;
 	
 	@NotNull
-	@Size(min = 5, max = 15)
+	@Size(min = 8, max = 20)
 	String passwrod;
 	
 	public String getPasswrod() {
