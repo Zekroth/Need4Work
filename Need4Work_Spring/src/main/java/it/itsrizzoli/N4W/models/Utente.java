@@ -7,8 +7,10 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
-public class utente {
+@SuppressWarnings("deprecation")
+public class Utente {
 	
+	@SuppressWarnings("deprecation")
 	@NotNull
 	@Email
 	String email; //chiave primaria

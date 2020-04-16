@@ -1,4 +1,5 @@
-package it.itsrizzoli.Spring;
+package it.itsrizzoli.N4W.models;
+
 
 import java.util.Date;
 

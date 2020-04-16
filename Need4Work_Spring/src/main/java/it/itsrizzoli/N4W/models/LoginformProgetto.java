@@ -1,4 +1,5 @@
-package it.itsrizzoli.Spring;
+package it.itsrizzoli.N4W.models;
+
 
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.Email;
