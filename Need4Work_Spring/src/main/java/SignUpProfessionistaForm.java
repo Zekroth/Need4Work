@@ -1,47 +1,51 @@
-package it.itsrizzoli.Spring;
+
 
 import java.util.Date;
 
 import javax.validation.constraints.*;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+public class SignUpProfessionistaForm {
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-public class RegistrazioneFormProfessionista {
-
-	@NotEmpty
-	@Size(min = 3, max = 15)
+	@NotNull
+	@Size(min = 3, max = 100)
 	String nome;
 	
-	@NotEmpty
-	@Size(min = 3, max = 15)
+	@NotNull
+	@Size(min = 3, max = 100)
 	String cognome;
 	
-
-	
-	@NotEmpty
+	@NotNull
 	Date datanascita;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 3, max = 300)
 	String via;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 3, max = 100)
 	String paese;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 2, max = 2)
+	String provincia;
+	
+	@NotNull
+	@Size(min = 3, max = 300)
+	@Email
 	String email;
 	
-	@NotEmpty
+	@Size(min = 9, max = 10)
 	int cellulare;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 8, max = 20)
 	String password;
 	
+	@NotNull
+	@Size(min = 5, max = 5)
+	int cap;
 	
 	String[] group;
-
 	
 	public String getNome() {
 		return nome;
