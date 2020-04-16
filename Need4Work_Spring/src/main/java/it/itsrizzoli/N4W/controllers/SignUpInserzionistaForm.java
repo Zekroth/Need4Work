@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class LoginSignupController {
+public class SignUpInserzionistaForm {
 	
 	@GetMapping("/signUpInserzionista")
 	public String signUpInserzionista(SignUpInserzionistaForm signUpInserzionistaForm) {
