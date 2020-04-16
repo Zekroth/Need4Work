@@ -3,7 +3,7 @@ package it.itsrizzoli.N4W.models;
 import java.util.Date;
 import javax.validation.constraints.*;
 
-public class RegistrazioneFormInserzionista {
+public class SignUpInserzionistaForm {
 
 	@NotNull
 	@Size(min = 3, max = 100)
