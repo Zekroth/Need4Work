@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class SignUpInserzionistaForm {
+public class LoginSignupController {
 	
 	@GetMapping("/signUpInserzionista")
-	public String signUpInserzionista(SignUpInserzionistaForm signUpInserzionistaForm) {
+	public String signUpInserzionista(LoginSignupController loginSignupController) {
 		return "signUpInserzionista";
 	}
 	
 	@PostMapping("/signUpInserzionista")
-	public String postSignUpInserzionista(@Valid SignUpInserzionistaForm signUpInserzionistaForm, BindingResult res) {
+	public String postSignUpInserzionista(@Valid LoginSignupController loginSignupController, BindingResult res) {
 		if (res.hasErrors())
 			return "signUpInserzionista";
 		
