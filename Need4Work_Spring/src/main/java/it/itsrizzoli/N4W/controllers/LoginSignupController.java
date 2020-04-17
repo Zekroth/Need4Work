@@ -7,9 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import it.itsrizzoli.N4W.models.LoginForm;
-import it.itsrizzoli.N4W.models.SignUpInserzionistaForm;
-import it.itsrizzoli.N4W.models.SignUpProfessionistaForm;
+import it.itsrizzoli.N4W.models.view.LoginForm;
+import it.itsrizzoli.N4W.models.view.SignUpInserzionistaForm;
+import it.itsrizzoli.N4W.models.view.SignUpProfessionistaForm;
 
 @Controller
 public class LoginSignupController {
