@@ -2,10 +2,14 @@ package it.itsrizzoli.N4W.models.db;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Utente {
 	
 	@NotNull
@@ -17,7 +21,8 @@ public class Utente {
 	String cognome;
 	
 	@NotNull
-	Date datanascita;
+	@Column(name="data_nascita")
+	Date dataNascita;
 	
 	@NotNull
 	@Size(min = 3, max = 300)
@@ -31,7 +36,7 @@ public class Utente {
 	@Size(min = 2, max = 2)
 	String provincia;
 	
-	@NotNull
+	@Id
 	@Size(min = 3, max = 300)
 	@Email
 	String email; //chiave primaria
@@ -63,12 +68,12 @@ public class Utente {
 		this.cognome = cognome;
 	}
 
-	public Date getDatanascita() {
-		return datanascita;
+	public Date getDataNascita() {
+		return dataNascita;
 	}
 
-	public void setDatanascita(Date datanascita) {
-		this.datanascita = datanascita;
+	public void setDataNascita(Date dataNascita) {
+		this.dataNascita = dataNascita;
 	}
 
 	public String getVia() {
