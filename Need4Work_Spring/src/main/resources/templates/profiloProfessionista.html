@@ -8,6 +8,14 @@
 <body>
 <p th:text="${descrizioneProfessionista}"/>
 <a href="/scriviRecensione"><button>Scrivi recensione</button></br>
-<!-- Inserire l'elenco delle recensioni del professionista -->
+<table>
+	<th:block th:each="lavoro:${lavori}">
+		<tr>
+			<td th:text="${lavoro.titolo}"></td>
+			<td th:text="${lavoro.commento}"></td>
+			<td th:text="${lavoro.valutazione}"></td>
+		</tr>
+	</th:block>
+</table>
 </body>
 </html>
