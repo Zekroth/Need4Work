@@ -13,7 +13,7 @@ public interface DBHandler {
 		static boolean flag = true;
 	}
 	
-	public default Connection getDBConnection() {
+	public default Connection getDBConnection(String dbName) {
 		Connection conn = null;
 		if(DBHandler.DBHI.flag) {
 			try {
@@ -26,7 +26,7 @@ public interface DBHandler {
 		}
 		try {
 			
-			String dbName  = "";
+			
 		    conn =
 		       DriverManager.getConnection("jdbc:mysql://localhost:3308/"+ dbName +"?" +
 		                                   "user=root&password=Edogaming98&serverTimezone=Europe/Amsterdam");
