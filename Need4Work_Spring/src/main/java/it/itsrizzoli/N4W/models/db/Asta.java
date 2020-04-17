@@ -150,7 +150,7 @@ public class Asta implements Serializable{
 			Double prezzoPartenza, Double prezzoChiusura, String titolo, String commento,
 			Professione professioneRichiesta) {
 		this.idAsta = idAsta;
-		ProprietarioAsta = proprietarioAsta;
+		this.proprietarioAsta = proprietarioAsta;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
 		this.vincitoreAsta = vincitoreAsta;
