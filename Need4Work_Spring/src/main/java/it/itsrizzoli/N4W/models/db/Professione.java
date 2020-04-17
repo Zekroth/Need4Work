@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 public class Professione implements Serializable{
 	
 	@Id
+	@NotNull
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
