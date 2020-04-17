@@ -9,53 +9,53 @@
 <h1>
 <p align="center">Modifica account</p>
 </h1>
-<form class="form-horizontal" method="POST" th:action="@{/modificaProfiloInserzionista}" th:object="${modificaProfiloInserzionistaForm}">
+<form class="form-horizontal" method="POST" th:action="@{/modificaProfiloInserzionista}" th:object="${utente}">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="nome">Nome </label>
 			<div class="col-sm-8">	
-				<input class="form-control" type="text" th:field="*{nome}" th:attr="value=${inserzionista.nome}" required>
+				<input class="form-control" type="text" th:value="${utente.nome}" required>
 			</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="cognome">Cognome </label>
 			<div class="col-sm-8">	
-				<input class="form-control" type="text" th:field="*{cognome}" th:attr="value=${inserzionista.cognome}" required>
+				<input class="form-control" type="text" th:value="${utente.cognome}" required>
 			</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="via">Via </label>
 			<div class="col-sm-8">	
-				<input class="form-control" type="text" th:field="*{via}" th:attr="value=${inserzionista.via}" required>
+				<input class="form-control" type="text" th:value="${utente.via}" required>
 			</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="cap">CAP </label>
 			<div class="col-sm-1">	
-				<input class="form-control" type="text" th:field="*{cap}" th:attr="value=${inserzionista.cap}" required>
+				<input class="form-control" type="text" th:value="${utente.cap}" required>
 			</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="paese">Paese </label>
 			<div class="col-sm-8">	
-				<input class="form-control" type="text" th:field="*{paese}" th:attr="value=${inserzionista.paese}" required>
+				<input class="form-control" type="text" th:value="${utente.paese}" required>
 			</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="provincia">Provincia </label>
 			<div class="col-sm-1">	
-				<input class="form-control" type="text" th:field="*{provincia}" th:attr="value=${inserzionista.provincia}" required>
+				<input class="form-control" type="text" th:value="${utente.provincia}" required>
 			</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="email">Email </label>
 			<div class="col-sm-8">	
-				<input class="form-control" type="email" th:field="*{email}" th:attr="value=${inserzionista.email}" required>
+				<input class="form-control" type="email" th:value="${utente.email}" required>
 			</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="cellulare">Cellulare </label>
 			<div class="col-sm-8">	
-				<input class="form-control" type="text" th:field="*{cellulare}" th:attr="value=${inserzionista.cellulare}" required>
+				<input class="form-control" type="text" th:value="${utente.cellulare}">
 			</div>
 	</div>
 	<div class="form-group">
