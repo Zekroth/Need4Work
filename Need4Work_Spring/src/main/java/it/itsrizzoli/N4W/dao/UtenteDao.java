@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import it.itsrizzoli.N4W.models.db.Utente;
 
-public interface UtenteDao extends CrudRepository<Utente, Long>{
+public interface UtenteDao extends CrudRepository<Utente, String>{
 	
 	List<Utente> findByNome(String nome);
 	List<Utente> findByCognome(String cognome);
