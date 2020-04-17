@@ -1,10 +1,7 @@
-
+package it.itsrizzoli.N4W.models;
 
 import java.util.Date;
-
-
 import javax.validation.constraints.*;
-import javax.validation.constraints.Size;
 
 public class SignUpInserzionistaForm {
 
@@ -126,6 +123,5 @@ public class SignUpInserzionistaForm {
 	public void setPassword(String password) {
 		this.password=password;
 	}
-	
 	
 }
