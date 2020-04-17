@@ -1,4 +1,4 @@
-package it.itsrizzoli.N4W.models;
+package it.itsrizzoli.N4W.models.view;
 
 
 import javax.validation.constraints.*;

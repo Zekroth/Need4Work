@@ -1,4 +1,4 @@
-package it.itsrizzoli.N4W.models;
+package it.itsrizzoli.N4W.models.db;
 
 import java.io.*;
 
@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Professione implements Serializable{
@@ -14,6 +16,8 @@ public class Professione implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@NotNull
+	@Size(min=5,max=100)
 	private String tipologia;
 
 	public Long getId() {

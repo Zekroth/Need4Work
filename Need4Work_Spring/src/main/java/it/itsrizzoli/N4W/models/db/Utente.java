@@ -1,52 +1,52 @@
-package it.itsrizzoli.N4W.models;
+package it.itsrizzoli.N4W.models.db;
 
+import java.sql.Date;
 
-import java.util.Date;
-
-
-import javax.validation.constraints.*;
-
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-public class RegistrazioneFormInserzionista {
-
-	@NotEmpty
-	@Size(min = 3, max = 15)
+public class Utente {
+	
+	@NotNull
+	@Size(min = 3, max = 100)
 	String nome;
 	
-	@NotEmpty
-	@Size(min = 3, max = 15)
+	@NotNull
+	@Size(min = 3, max = 100)
 	String cognome;
 	
-
-	
-	@NotEmpty
+	@NotNull
 	Date datanascita;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 3, max = 300)
 	String via;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 3, max = 100)
 	String paese;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 2, max = 2)
 	String provincia;
 	
-	@NotEmpty
-	String email;
+	@NotNull
+	@Size(min = 3, max = 300)
+	@Email
+	String email; //chiave primaria
 	
-	@NotEmpty
+	@Size(min = 9, max = 10)
 	int cellulare;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 8, max = 20)
 	String password;
 	
-	@NotEmpty
+	@NotNull
+	@Size(min = 5, max = 5)
 	int cap;
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -63,12 +63,20 @@ public class RegistrazioneFormInserzionista {
 		this.cognome = cognome;
 	}
 
-	public int getCap() {
-		return cap;
+	public Date getDatanascita() {
+		return datanascita;
 	}
 
-	public void setCap(int cap) {
-		this.cap = cap;
+	public void setDatanascita(Date datanascita) {
+		this.datanascita = datanascita;
+	}
+
+	public String getVia() {
+		return via;
+	}
+
+	public void setVia(String via) {
+		this.via = via;
 	}
 
 	public String getPaese() {
@@ -79,62 +87,44 @@ public class RegistrazioneFormInserzionista {
 		this.paese = paese;
 	}
 
-	public Date getDataNascita() {
-		return datanascita;
-	}
-
-	public void setDataNascita(Date datanascita) {
-		this.datanascita = datanascita;
-	}
-	
-	public String getVia() {
-		return via;
-	}
-	
-	public void setVia(String via) {
-		this.via = via;
-	}
-	
 	public String getProvincia() {
 		return provincia;
 	}
-	
+
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
-		this.email=email;
+		this.email = email;
 	}
-	
+
 	public int getCellulare() {
 		return cellulare;
 	}
-	
+
 	public void setCellulare(int cellulare) {
-		this.cellulare=cellulare;
+		this.cellulare = cellulare;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
-		this.password=password;
+		this.password = password;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public int getCap() {
+		return cap;
+	}
+
+	public void setCap(int cap) {
+		this.cap = cap;
+	}
+
 }
