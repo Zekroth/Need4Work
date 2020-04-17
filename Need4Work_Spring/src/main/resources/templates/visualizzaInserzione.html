@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Asta</title>
+</head>
+<body>
+	<p th:text="${asta.titolo}"/>
+	<p th:text="${asta.descrizione}"/>
+	<table>
+	   <th:block th:each="offerta : ${offerte}">
+		  <tr>
+		     <td th:text="${offerta.email_utente}"></td>
+		     <td th:text="${offerta.prezzo}"></td>
+		     <td><a th:href="@{'profiloProfessionista/' + ${offerta.getEmail_utente()}}">Visualizza profilo professionista</a></td>
+		     <td><a th:href="@{'astaAccettata/' + ${offerta.getEmail_utente()}}">Accetta</a></td>
+		  </tr>
+	   </th:block>
+	</table> 
+</body>
+</html>
