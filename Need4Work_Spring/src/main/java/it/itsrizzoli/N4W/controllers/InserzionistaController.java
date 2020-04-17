@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Utente;
+import it.itsrizzoli.N4W.models.view.CreazioneInserzioneForm;
 
 @Controller
 public class InserzionistaController {
