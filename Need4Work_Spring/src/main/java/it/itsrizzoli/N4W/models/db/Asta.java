@@ -24,7 +24,7 @@ public class Asta implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="email_utente")
-	private Utente ProprietarioAsta;
+	private Utente proprietarioAsta;
 	
 	@Column(name="data_inizio")
 	private Date dataInizio;
@@ -63,11 +63,11 @@ public class Asta implements Serializable{
 	}
 
 	public Utente getProprietarioAsta() {
-		return ProprietarioAsta;
+		return proprietarioAsta;
 	}
 
 	public void setProprietarioAsta(Utente proprietarioAsta) {
-		ProprietarioAsta = proprietarioAsta;
+		this.proprietarioAsta = proprietarioAsta;
 	}
 
 	public Date getDataInizio() {
