@@ -1,4 +1,4 @@
-package it.itsrizzoli.N4W.models;
+package it.itsrizzoli.N4W.models.db;
 
 import java.io.Serializable;
 import java.sql.Date;

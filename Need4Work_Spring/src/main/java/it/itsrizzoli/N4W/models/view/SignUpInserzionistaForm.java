@@ -1,13 +1,10 @@
-package it.itsrizzoli.N4W.models;
+package it.itsrizzoli.N4W.models.view;
 
-import java.sql.Date;
+import java.util.Date;
+import javax.validation.constraints.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+public class SignUpInserzionistaForm {
 
-public class Utente {
-	
 	@NotNull
 	@Size(min = 3, max = 100)
 	String nome;
@@ -34,7 +31,7 @@ public class Utente {
 	@NotNull
 	@Size(min = 3, max = 300)
 	@Email
-	String email; //chiave primaria
+	String email;
 	
 	@Size(min = 9, max = 10)
 	int cellulare;
@@ -46,7 +43,7 @@ public class Utente {
 	@NotNull
 	@Size(min = 5, max = 5)
 	int cap;
-
+	
 	public String getNome() {
 		return nome;
 	}
@@ -63,20 +60,12 @@ public class Utente {
 		this.cognome = cognome;
 	}
 
-	public Date getDatanascita() {
-		return datanascita;
+	public int getCap() {
+		return cap;
 	}
 
-	public void setDatanascita(Date datanascita) {
-		this.datanascita = datanascita;
-	}
-
-	public String getVia() {
-		return via;
-	}
-
-	public void setVia(String via) {
-		this.via = via;
+	public void setCap(int cap) {
+		this.cap = cap;
 	}
 
 	public String getPaese() {
@@ -87,44 +76,52 @@ public class Utente {
 		this.paese = paese;
 	}
 
+	public Date getDataNascita() {
+		return datanascita;
+	}
+
+	public void setDataNascita(Date datanascita) {
+		this.datanascita = datanascita;
+	}
+	
+	public String getVia() {
+		return via;
+	}
+	
+	public void setVia(String via) {
+		this.via = via;
+	}
+	
 	public String getProvincia() {
 		return provincia;
 	}
-
+	
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
-
+	
 	public String getEmail() {
 		return email;
 	}
-
+	
 	public void setEmail(String email) {
-		this.email = email;
+		this.email=email;
 	}
-
+	
 	public int getCellulare() {
 		return cellulare;
 	}
-
+	
 	public void setCellulare(int cellulare) {
-		this.cellulare = cellulare;
+		this.cellulare=cellulare;
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
-
+	
 	public void setPassword(String password) {
-		this.password = password;
+		this.password=password;
 	}
-
-	public int getCap() {
-		return cap;
-	}
-
-	public void setCap(int cap) {
-		this.cap = cap;
-	}
-
+	
 }
