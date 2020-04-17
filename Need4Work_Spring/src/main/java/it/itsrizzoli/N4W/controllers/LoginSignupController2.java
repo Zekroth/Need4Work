@@ -12,7 +12,7 @@ import it.itsrizzoli.N4W.models.view.SignUpInserzionistaForm;
 import it.itsrizzoli.N4W.models.view.SignUpProfessionistaForm;
 
 @Controller
-public class LoginSignupController {
+public class LoginSignupController2 {
 	
 	@GetMapping("/signUpInserzionista")
 	public String signUpInserzionista(SignUpInserzionistaForm signUpInserzionistaForm) {
@@ -65,5 +65,5 @@ public class LoginSignupController {
 	public String iscrizioneEseguita() {
 		return "iscrizioneEseguita";
 	}
-	
+
 }
