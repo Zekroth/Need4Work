@@ -1,4 +1,4 @@
-package it.itsrizzoli.Spring;
+package it.itsrizzoli.N4W.dao;
 
 public class JpaUserDAO {
 
