@@ -11,13 +11,13 @@ public class LoginForm {
 	
 	@NotNull
 	@Size(min = 8, max = 20)
-	String passwrod;
+	String password;
 	
-	public String getPasswrod() {
-		return passwrod;
+	public String getPassword() {
+		return password;
 	}
-	public void setPasswrod(String passwrod) {
-		this.passwrod = passwrod;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getEmail() {
 		return email;
