@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import it.itsrizzoli.N4W.dao.UserJdbcDao;
+import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Utente;
 import it.itsrizzoli.N4W.models.view.LoginForm;
 import it.itsrizzoli.N4W.models.view.SignUpInserzionistaForm;
@@ -23,7 +24,8 @@ import it.itsrizzoli.N4W.models.view.SignUpProfessionistaForm;
 @Controller
 @EnableWebMvc
 public class LoginSignupController {
-	
+	@Autowired
+	private UtenteDao userRepository;	
 	@Autowired
     UserJdbcDao userJdbcRepository;
 	
@@ -33,11 +35,15 @@ public class LoginSignupController {
 	}
 	
 	@PostMapping("/signUpInserzionista")
-	public String postSignUpInserzionista(@Valid SignUpInserzionistaForm signUpInserzionistaForm, BindingResult res) {
+	public String postSignUpInserzionista(@Valid Utente utente, BindingResult res, Model model, HttpSession session) {
 		if (res.hasErrors())
 			return "signUpInserzionista";
 		
-		
+		userRepository.save(utente);
+		session.setAttribute("loggedUser", utente);
+
+
+		model.addAttribute("msg", "Informazioni salvate");
 		return "iscrizioneEseguita";
 	}
 	
