@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -67,7 +69,7 @@ public class LoginSignupController {
 		return "login";
 	}
 	
-	@PostMapping("/login")
+	@RequestMapping(value="/signin", method=RequestMethod.POST)
 	public String postLogin(@RequestParam ("email") String email, @RequestParam("password") String password, Model model, HttpSession session) {
 		
 		List<Utente> userList = userJdbcRepository.login(email, password);
