@@ -55,5 +55,10 @@ public class InserzionistaController {
 		userRepository.save(utente);
 		return "redirect:/paginaUtenteInserzionista";
 	}
+	
+	@GetMapping("/paginaUtenteInserzionista")
+	public String paginaUtenteInserzionista() {
+		return "paginaUtenteInserzionista";
+	}
 
 }
