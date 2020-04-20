@@ -5,11 +5,12 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import it.itsrizzoli.N4W.models.db.Offerta;
+import it.itsrizzoli.N4W.models.db.Utente;
 
 public interface OffertaDao extends CrudRepository<Offerta, Long>{
 	
 	Offerta findById(long id);
 	List<Offerta> findByAstaId(long idAsta);
-	List<Offerta> findByEmail(String email_utente);
+	List<Offerta> findByUtente(Utente utente);
 
 }
