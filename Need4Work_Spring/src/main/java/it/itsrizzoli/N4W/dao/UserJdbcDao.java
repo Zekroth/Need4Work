@@ -16,7 +16,7 @@ public class UserJdbcDao {
 
 	public List<Utente> login(String email, String password) {
         return jdbcTemplate.query(
-                "select * from utenti where email = ? and password = ?",
+                "select * from utente where email = ? and password = ?",
                 new Object[]{email, password},
                 (rs, rowNum) ->
                         new Utente(
