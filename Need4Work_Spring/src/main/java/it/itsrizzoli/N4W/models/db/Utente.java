@@ -2,7 +2,6 @@ package it.itsrizzoli.N4W.models.db;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
@@ -21,7 +20,6 @@ public class Utente {
 	String cognome;
 	
 	@NotNull
-	@Column(name="data_nascita")
 	Date dataNascita;
 	
 	@NotNull
