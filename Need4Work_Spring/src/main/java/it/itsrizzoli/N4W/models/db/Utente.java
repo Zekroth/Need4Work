@@ -42,7 +42,7 @@ public class Utente {
 	String email; //chiave primaria
 	
 	@Size(min = 9, max = 10)
-	int cellulare;
+	String cellulare;
 	
 	@NotNull
 	@Size(min = 8, max = 20)
@@ -51,6 +51,33 @@ public class Utente {
 	@NotNull
 	@Size(min = 5, max = 5)
 	int cap;
+	
+	
+	public Utente() {}
+
+	public Utente(@Size(min = 3, max = 300) @Email String email, @NotNull @Size(min = 8, max = 20) String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+	
+	public Utente(@NotNull @Size(min = 3, max = 100) String nome, @NotNull @Size(min = 3, max = 100) String cognome,
+			@NotNull Date dataNascita, @NotNull @Size(min = 3, max = 300) String via,
+			@NotNull @Size(min = 3, max = 100) String paese, @NotNull @Size(min = 2, max = 2) String provincia,
+			@Size(min = 3, max = 300) @Email String email, @Size(min = 9, max = 10) String cellulare,
+			@NotNull @Size(min = 8, max = 20) String password, @NotNull @Size(min = 5, max = 5) int cap) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.dataNascita = dataNascita;
+		this.via = via;
+		this.paese = paese;
+		this.provincia = provincia;
+		this.email = email;
+		this.cellulare = cellulare;
+		this.password = password;
+		this.cap = cap;
+	}
+	
 
 	public String getNome() {
 		return nome;
@@ -108,11 +135,11 @@ public class Utente {
 		this.email = email;
 	}
 
-	public int getCellulare() {
+	public String getCellulare() {
 		return cellulare;
 	}
 
-	public void setCellulare(int cellulare) {
+	public void setCellulare(String cellulare) {
 		this.cellulare = cellulare;
 	}
 
