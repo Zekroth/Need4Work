@@ -2,23 +2,22 @@ package it.itsrizzoli.N4W.models.db;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Professionista implements Serializable{
 	
 	@Id
-	@OneToMany
-	@JoinColumn(name="email_utente")
+	@ManyToOne
+	@JoinColumn(name="email_utente", referencedColumnName = "email")
 	private Utente utente;
 	
 	@Id
-	@OneToMany
-	@JoinColumn(name="id_professione")
+	@ManyToOne
+	@JoinColumn(name="id_professione", referencedColumnName = "id")
 	private Professione professione;
 
 	public Utente getUtente() {

@@ -10,17 +10,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 public class Asta implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id_asta")
-	private Long idAsta;
+	private Long id;
 	
 	@ManyToOne
 	@JoinColumn(name="email_utente")
@@ -55,11 +59,11 @@ public class Asta implements Serializable{
 	private Professione professioneRichiesta;
 
 	public Long getIdAsta() {
-		return idAsta;
+		return id;
 	}
 
 	public void setIdAsta(Long idAsta) {
-		this.idAsta = idAsta;
+		this.id = idAsta;
 	}
 
 	public Utente getProprietarioAsta() {
@@ -135,7 +139,7 @@ public class Asta implements Serializable{
 	}
 
 	/**
-	 * @param idAsta
+	 * @param id
 	 * @param proprietarioAsta
 	 * @param dataInizio
 	 * @param dataFine
@@ -149,7 +153,7 @@ public class Asta implements Serializable{
 	public Asta(Long idAsta, Utente proprietarioAsta, Date dataInizio, Date dataFine, Utente vincitoreAsta,
 			Double prezzoPartenza, Double prezzoChiusura, String titolo, String commento,
 			Professione professioneRichiesta) {
-		this.idAsta = idAsta;
+		this.id = idAsta;
 		this.proprietarioAsta = proprietarioAsta;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;

@@ -9,7 +9,7 @@ import it.itsrizzoli.N4W.models.db.Offerta;
 public interface OffertaDao extends CrudRepository<Offerta, Long>{
 	
 	Offerta findById(long id);
-	List<Offerta> findByAstaId(long id);
-	List<Offerta> findByEmail(String email);
+	List<Offerta> findByAstaId(long idAsta);
+	List<Offerta> findByEmail(String email_utente);
 
 }

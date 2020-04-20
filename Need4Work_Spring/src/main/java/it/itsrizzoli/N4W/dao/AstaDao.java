@@ -8,7 +8,7 @@ import it.itsrizzoli.N4W.models.db.Asta;
 
 public interface AstaDao extends CrudRepository<Asta, Long>{
 	
-	Asta findByIdAsta(long idAsta);
+	Asta findByIdAsta(long id);
 	List<Asta> findByProprietarioAsta(String proprietarioAsta);
 	List<Asta> findByVincitoreAsta(String vincitoreAsta);
 	List<Asta> findByProfessioneRichiesta(String professioneRichiesta);

@@ -15,6 +15,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Offerta implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +30,7 @@ public class Offerta implements Serializable{
 	@NotNull
 	private Utente utente;
 	
-	@JoinColumn(name="id_asta")
+	@JoinColumn(name="id_asta", referencedColumnName="id_asta")
 	@NotNull
 	@ManyToOne
 	private Asta asta;
