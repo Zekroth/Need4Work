@@ -14,7 +14,7 @@ public class SignUpInserzionistaForm {
 	String cognome;
 	
 	@NotNull
-	Date datanascita;
+	Date dataNascita;
 	
 	@NotNull
 	@Size(min = 3, max = 300)
@@ -77,11 +77,11 @@ public class SignUpInserzionistaForm {
 	}
 
 	public Date getDataNascita() {
-		return datanascita;
+		return dataNascita;
 	}
 
-	public void setDataNascita(Date datanascita) {
-		this.datanascita = datanascita;
+	public void setDataNascita(Date dataNascita) {
+		this.dataNascita = dataNascita;
 	}
 	
 	public String getVia() {
