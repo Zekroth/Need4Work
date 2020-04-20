@@ -47,7 +47,6 @@ public class Utente {
 	String password;
 	
 	@NotNull
-	@Size(min = 5, max = 5)
 	int cap;
 	
 	
@@ -63,7 +62,7 @@ public class Utente {
 			@NotNull Date dataNascita, @NotNull @Size(min = 3, max = 300) String via,
 			@NotNull @Size(min = 3, max = 100) String paese, @NotNull @Size(min = 2, max = 2) String provincia,
 			@Size(min = 3, max = 300) @Email String email, @Size(min = 9, max = 10) String cellulare,
-			@NotNull @Size(min = 8, max = 20) String password, @NotNull @Size(min = 5, max = 5) int cap) {
+			@NotNull @Size(min = 8, max = 20) String password, @NotNull int cap) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.dataNascita = dataNascita;

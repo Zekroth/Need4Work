@@ -32,7 +32,7 @@ public class LoginSignupController {
     UserJdbcDao userJdbcRepository;
 	
 	@GetMapping("/signUpInserzionista")
-	public String signUpInserzionista(SignUpInserzionistaForm signUpInserzionistaForm) {
+	public String signUpInserzionista(Utente utente) {
 		return "signUpInserzionista";
 	}
 	
@@ -46,7 +46,7 @@ public class LoginSignupController {
 
 
 		model.addAttribute("msg", "Informazioni salvate");
-		return "iscrizioneEseguita";
+		return "redirect:/iscrizioneEseguita";
 	}
 	
 	@GetMapping("/signUpProfessionista")
