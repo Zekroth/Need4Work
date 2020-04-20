@@ -76,6 +76,7 @@ public class LoginSignupController {
 			return "redirect:/login";
 		else {
 			session.setAttribute("loggedUser", userList.get(0));
+			
 			return null;	//da modificare per far andare in una pagina o l'altra a seconda di chi si sia autenticato
 		}
 	}
