@@ -3,17 +3,17 @@ package it.itsrizzoli.N4W.dao;
 import java.util.List;
 import java.util.Optional;
 
-public interface DAO<da> {
+public interface DAO<T> {
 
-	Optional<da> get(long id);
+	Optional<T> get(long id);
 	
-	List<da> getAll();
+	List<T> getAll();
 	
-	void save (da d);
+	void save (T d);
 	
-	void update(da d, String[] params);
+	void update(T d, String[] params);
 	
-	void delete(da d);
+	void delete(T d);
 	
 	
 }
