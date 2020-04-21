@@ -22,7 +22,7 @@ public class Asta implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idAsta;
 	
 	@ManyToOne
@@ -179,8 +179,6 @@ public class Asta implements Serializable{
 		this.commento = commento;
 		this.professioneRichiesta = professioneRichiesta;
 	}
-	
-	
 	
 	
 }

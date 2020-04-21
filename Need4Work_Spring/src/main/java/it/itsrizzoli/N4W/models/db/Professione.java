@@ -14,7 +14,7 @@ public class Professione implements Serializable{
 	
 	@Id
 	@NotNull
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
@@ -52,6 +52,10 @@ public class Professione implements Serializable{
 	public Professione(Long id) {
 		this.id = id;
 		this.tipologia = "";
+	}
+	
+	public Professione() {
+		
 	}
 	
 }

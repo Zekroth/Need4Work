@@ -1,5 +1,8 @@
 package it.itsrizzoli.N4W.controllers;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -39,6 +42,9 @@ public class InserzionistaController {
 		if (res.hasErrors())
 			return "creazioneInserzione";
 		
+		asta.setProprietarioAsta((Utente) session.getAttribute("loggedUser"));
+		asta.setPrezzoChiusura(null);
+		asta.setVincitoreAsta(null);
 		astaRepository.save(asta);
 		return "paginaUtenteInserzionista";
 	}
