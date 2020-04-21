@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>Mio profilo</h1>
-<p th:text="${inserzionista}"/>
+<p th:text="${utente.nome}"/>
+<p th:text="${utente.cognome}"/>
 <a href="/modificaProfiloInserzionista"><button>Modifica profilo</button></br>
 <a href="/creazioneInserzione"><button>Crea inserzione</button></a>
 <table>

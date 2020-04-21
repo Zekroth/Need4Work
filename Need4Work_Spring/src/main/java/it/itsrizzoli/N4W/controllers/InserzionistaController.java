@@ -78,6 +78,7 @@ public class InserzionistaController {
 			
 			List<Asta> aste=astaRepository.findByProprietarioAsta(utente);
 			
+			model.addAttribute("utente",utente);
 			model.addAttribute("asta",aste);
 			return "paginaUtenteInserzionista";
 		}
