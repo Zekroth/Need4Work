@@ -3,9 +3,11 @@
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <meta charset="ISO-8859-1">
+<th:block th:include="fragments/_layout.html :: head"></th:block>
 <title>Login</title>
 </head>
 <body>
+<header th:replace="fragments/_layout.html :: navbar">thymeleaf layout loading failed</header>
 <div class="container">
     <div class="row">
         <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">

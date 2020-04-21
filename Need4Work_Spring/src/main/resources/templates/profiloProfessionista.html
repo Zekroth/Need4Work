@@ -10,7 +10,15 @@
 
 		</br> 
 	<div th:object="${session.loggedUser}">
-		<!-- <th:block th:include="*{'dp/' + email}" th:unless="${session == null}"/> -->
+		<span th:if="${session == null}">
+			<!-- 
+				SEZIONE CARICATA SE UTENTE NON LOGGATO
+			 -->
+			 
+			<div class="alert alert-primary" role="alert">
+  				Non sei loggato torna alla pagina di <a th:href="@{~/login}">Login</a>
+			</div>
+		</span>
 		<iframe th:src="@{~/dp/(email)}" th:unless="${session == null || param.email == null || param.email == ''}">
 			<p>No frame support :c</p>
 		</iframe>
