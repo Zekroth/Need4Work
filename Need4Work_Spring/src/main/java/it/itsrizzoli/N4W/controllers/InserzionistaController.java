@@ -22,7 +22,6 @@ import it.itsrizzoli.N4W.dao.AstaDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Utente;
-import it.itsrizzoli.N4W.models.view.CreazioneInserzioneForm;
 
 @Controller
 public class InserzionistaController {
@@ -46,7 +45,9 @@ public class InserzionistaController {
 		asta.setPrezzoChiusura(null);
 		asta.setVincitoreAsta(null);
 		astaRepository.save(asta);
-		return "paginaUtenteInserzionista";
+		
+		model.addAttribute("msg", "Asta creata");
+		return "redirect:/paginaUtenteInserzionista";
 	}
 	
 	@RequestMapping ("/modificaProfiloInserzionista/{email}")
