@@ -2,6 +2,7 @@ package it.itsrizzoli.N4W.controllers;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -71,8 +72,16 @@ public class InserzionistaController {
 	}
 	
 	@GetMapping("/paginaUtenteInserzionista")
-	public String paginaUtenteInserzionista() {
-		return "paginaUtenteInserzionista";
+	public String paginaUtenteInserzionista(Model model, HttpSession session) {
+		Utente utente=(Utente) session.getAttribute("loggedUser");
+		if (utente!=null) {
+			
+			List<Asta> aste=astaRepository.findByProprietarioAsta(utente);
+			
+			model.addAttribute("asta",aste);
+			return "paginaUtenteInserzionista";
+		}
+		return "redirect:/login";
 	}
 
 }

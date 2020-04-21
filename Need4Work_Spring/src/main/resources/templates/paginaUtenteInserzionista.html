@@ -8,13 +8,13 @@
 <h1>Mio profilo<h1>
 <p th:text="${inserzionista}"/>
 <a href="/modificaProfiloInserzionista"><button>Modifica profilo</button></br>
-<a href="/creazioneInserzione"><button>Crea inserzione</button>
+<a href="/creazioneInserzione"><button>Crea inserzione</button></a>
 <table>
 	<th:block th:each="ins:${asta}">
 		<tr>
 			<td th:text="${ins.titolo}"></td>
 			<td th:text="${ins.commento}"></td>
-			<td><a th:href="@{'visualizzaInserzione/' + ${ins.getId()}}">Visualizza inserzione</a></td>
+			<td><a th:href="@{'visualizzaInserzione/' + ${ins.getIdAsta()}}">Visualizza inserzione</a></td>
 		</tr>
 	</th:block>
 </table>
