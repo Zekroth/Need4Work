@@ -9,7 +9,7 @@
 <h1>
 <p align="center">Crea la tua inserzione</p>
 </h1>
-<form class="form-horizontal" role="form" method="POST" th:action="@{/creazioneInserzione}" th:object="${creazioneInserzioneForm}">
+<form class="form-horizontal" role="form" method="POST" th:action="@{/creazioneInserzione}" th:object="${asta}">
      <div class="form-group">
 		<label class="control-label col-sm-2">Titolo</label>
 		<div class="col-sm-8">
@@ -27,8 +27,8 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2">Importo massimo</label>
 		<div class="col-sm-8">
-			<input class="form-control" type="text" th:field="*{importoMax}">
-			<p th:if="${#fields.hasErrors('importoMax')}" th:errors="*{importoMax}" />
+			<input class="form-control" type="text" th:field="*{prezzoPartenza}">
+			<p th:if="${#fields.hasErrors('prezzoPartenza')}" th:errors="*{prezzoPartenza}" />
 		</div>
 	</div>
 	<div class="form-group">

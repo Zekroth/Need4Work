@@ -169,6 +169,18 @@ public class Asta implements Serializable{
 	 */
 	public Asta() {
 	}
+
+	public Asta(Date dataFine, Double prezzoPartenza, @Size(min = 5, max = 100) @NotNull String titolo,
+			@Size(min = 30, max = 500) @NotNull String commento, Professione professioneRichiesta) {
+		super();
+		this.dataFine = dataFine;
+		this.prezzoPartenza = prezzoPartenza;
+		this.titolo = titolo;
+		this.commento = commento;
+		this.professioneRichiesta = professioneRichiesta;
+	}
+	
+	
 	
 	
 }
