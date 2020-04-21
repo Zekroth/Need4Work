@@ -11,13 +11,18 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class HelloController {
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@GetMapping(value = "/")
 	public String index( Model model ) {
 		
 		
 		model.addAttribute("hello", "Hello there");
 		
 		return "hp";
+	}
+	
+	@GetMapping(value = "/hp")
+	public String hp( Model model ) {
+		return index( model );
 	}
 	
 	@GetMapping("/error")
