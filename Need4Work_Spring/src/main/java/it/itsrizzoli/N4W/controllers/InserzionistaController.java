@@ -51,23 +51,26 @@ public class InserzionistaController {
 		return "redirect:/paginaUtenteInserzionista";
 	}
 	
-	@RequestMapping ("/modificaProfiloInserzionista/{email}")
-	public ModelAndView edit(@PathVariable("email") String email) {
-		Utente utente = userRepository.findByEmail(email);
+	@RequestMapping("/modificaProfilo")
+	public ModelAndView modificaProfilo(HttpSession session) {
+		Utente utente=(Utente) session.getAttribute("loggedUser");
+		
 		ModelAndView mav=new ModelAndView();
 		
 		if(utente!=null) {
 			mav.setViewName("modificaProfiloInserzionista");
-			mav.addObject("utente", utente);
+			mav.addObject("utente",utente);
 			return mav;
 		} else {
 			return null;
 		}
 	}
 	
-	@RequestMapping (value="/modificaProfiloInserzionista", method=RequestMethod.POST)
-	public String postEdit(@ModelAttribute Utente utente) {
+	@RequestMapping(value="/modificaProfilo", method=RequestMethod.POST)
+	public String postModificaProfilo(@ModelAttribute Utente utente) {
+		
 		userRepository.save(utente);
+		
 		return "redirect:/paginaUtenteInserzionista";
 	}
 	
