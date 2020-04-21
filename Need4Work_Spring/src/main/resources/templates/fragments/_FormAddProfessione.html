@@ -1,0 +1,8 @@
+<form action="#" th:action="@{pro/add}" th:object="${addProfessions}" method="POST">
+	<select th:field="*{professionId}" multiple>
+	    <option value=""> -- </option>
+	    <option th:each="profession : ${professionList}"
+	       th:value="${profession.id}"
+	       th:utext="${profession.tipologia}"/>
+    </select>
+</form>
