@@ -10,11 +10,15 @@
 <a href="/modificaProfiloInserzionista"><button>Modifica profilo</button></br>
 <a href="/creazioneInserzione"><button>Crea inserzione</button></a>
 <table>
+	<tr>
+		<td>Titolo</td>
+		<td>Descrizione</td>
+	</tr>
 	<th:block th:each="ins:${asta}">
 		<tr>
 			<td th:text="${ins.titolo}"></td>
 			<td th:text="${ins.commento}"></td>
-			<td><a th:href="@{'visualizzaInserzione/' + ${ins.getIdAsta()}}">Visualizza inserzione</a></td>
+			<td><a th:href="@{'visualizzaInserzione/' + ${ins.getIdAsta()}}">Visualizza asta</a></td>
 		</tr>
 	</th:block>
 </table>
