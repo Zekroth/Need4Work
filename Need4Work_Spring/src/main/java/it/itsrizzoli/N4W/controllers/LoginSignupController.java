@@ -49,20 +49,6 @@ public class LoginSignupController {
 		return "redirect:/iscrizioneEseguita";
 	}
 	
-	@GetMapping("/signUpProfessionista")
-	public String signUpProfessionista(SignUpProfessionistaForm signUpProfessionistaForm) {
-		return "signUpProfessionista";
-	}
-	
-	@PostMapping("/signUpProfessionista")
-	public String postSignUpProfessionista(@Valid SignUpProfessionistaForm signUpProfessionistaForm, BindingResult res) {
-		if (res.hasErrors())
-			return "signUpProfessionista";
-		
-		
-		return "iscrizioneEseguita";
-	}
-	
 	@GetMapping("/login")
 	public String login(LoginForm loginForm) {
 		System.out.println("Some1 tried to log");
@@ -80,11 +66,6 @@ public class LoginSignupController {
 			session.setAttribute("loggedUser", userList.get(0));
 			return "redirect:/paginaUtenteInserzionista";	//da modificare per far andare in una pagina o l'altra a seconda di chi si sia autenticato
 		}
-	}
-	
-	@GetMapping("/sceltaAccount")
-	public String sceltaAccount() {
-		return "sceltaAccount";
 	}
 	
 	@GetMapping("/iscrizioneEseguita")
