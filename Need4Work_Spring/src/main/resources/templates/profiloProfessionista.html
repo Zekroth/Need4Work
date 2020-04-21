@@ -11,7 +11,7 @@
 		</br> 
 	<div th:object="${session.loggedUser}">
 		<!-- <th:block th:include="*{'dp/' + email}" th:unless="${session == null}"/> -->
-		<iframe th:src="@{~/dp/(email)}" th:unless="${session == null}">
+		<iframe th:src="@{~/dp/(email)}" th:unless="${session == null || param.email == null || param.email == ''}">
 			<p>No frame support :c</p>
 		</iframe>
 	</div>

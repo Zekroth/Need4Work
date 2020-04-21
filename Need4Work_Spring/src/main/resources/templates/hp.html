@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head th:replace="fragments/_layout.html :: head">
+<head th:include="fragments/_layout.html :: head">
 	<meta charset="ISO-8859-1">
 	<title>HomePage</title>
 
 </head>
 <body>
 
-	<header role="banner">
-		<nav class="navbar-expand-lg navbar-light bg-dark">
-			<ul class="navbar-nav mr-auto">
-				<li><a href="/">HomePage</a></li>
-			</ul>
-		</nav>
+	<header th:replace="fragments/_layout.html :: navbar">
+		Loading Failed
 	</header>
+	
 </body>
 </html>
