@@ -20,8 +20,8 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2">Descrizione</label>
 		<div class="col-sm-8">
-			<textarea class="form-control" rows="3" id="descrizione" th:field="*{descrizione}"></textarea>
-			<p th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" />
+			<input class="form-control" type="text" th:field="*{commento}">
+			<p th:if="${#fields.hasErrors('commento')}" th:errors="*{commento}" />
 		</div>
 	</div>
 	<div class="form-group">
@@ -34,7 +34,7 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2">Categoria lavoro</label>
 		<div class="col-sm-8">
-		<select class="form-control" id="sel1" th:field="*{tipologiaLavoro}" required>
+		<select class="form-control" id="sel1" th:field="*{professioneRichiesta}" required>
 	        <option th:value="'giardinaggio'">Giardinaggio</option>
 	        <option th:value="'elettricista'">Elettricista</option>
 	        <option th:value="'idraulico'">Idraulico</option>

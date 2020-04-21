@@ -15,7 +15,7 @@ public class CreazioneInserzioneForm {
 	String commento;
 	
 	@DecimalMax(value = "9999.99")
-	double prezzoPartenza;
+	double importoMax;
 	
 	@NotNull
 	String professioneRichiesta;
@@ -39,12 +39,12 @@ public class CreazioneInserzioneForm {
 		this.commento = commento;
 	}
 
-	public double getPrezzoPartenza() {
-		return prezzoPartenza;
+	public double getImportoMax() {
+		return importoMax;
 	}
 
-	public void setPrezzoPartenza(double prezzoPartenza) {
-		this.prezzoPartenza = prezzoPartenza;
+	public void setImportoMax(double importoMax) {
+		this.importoMax = importoMax;
 	}
 
 	public String getProfessioneRichiesta() {
