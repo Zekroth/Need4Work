@@ -1,0 +1,10 @@
+<div id="rootDispProfessioni">
+	<table>
+		<th:block th:each="professione: ${Professioni}">
+			<tr>
+				<td th:text="${professione.id}"></td>
+				<td th:text="${professione.tipologia}"></td>
+			</tr>
+		</th:block>
+	</table>
+</div>

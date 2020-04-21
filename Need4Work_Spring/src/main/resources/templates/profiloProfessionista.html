@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 <meta charset="UTF-8">
 <title>Profilo professionista</title>
+<th:block th:include="fragments/_layout.html" />
 </head>
 <body>
-<p th:text="${descrizioneProfessionista}"/>
-<a href="/scriviRecensione"><button>Scrivi recensione</button></br>
-<table>
-	<th:block th:each="lavoro:${lavori}">
-		<tr>
-			<td th:text="${lavoro.titolo}"></td>
-			<td th:text="${lavoro.commento}"></td>
-			<td th:text="${lavoro.valutazione}"></td>
-		</tr>
-	</th:block>
-</table>
+
+		</br> 
+	<div th:object="${session.loggedUser}">
+		<!-- <th:block th:include="*{'dp/' + email}" th:unless="${session == null}"/> -->
+		<iframe th:src="@{~/dp/(email)}" th:unless="${session == null}">
+			<p>No frame support :c</p>
+		</iframe>
+	</div>
+	
 </body>
 </html>

@@ -52,4 +52,10 @@ public class ProfessionistaController {
 		
 		return "redirect:/hp";
 	}
+	
+	@GetMapping(value = "/profile")
+	public String viewProfile(Model model, HttpSession session) {
+		return "profiloProfessionista";
+	}
+	
 }
