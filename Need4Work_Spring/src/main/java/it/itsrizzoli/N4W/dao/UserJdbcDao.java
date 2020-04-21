@@ -22,7 +22,7 @@ public class UserJdbcDao {
                         new Utente(
                         		rs.getString("nome"),
                         		rs.getString("cognome"),
-                        		rs.getDate("dataNascita"),
+                        		rs.getDate("data_nascita"),
                         		rs.getString("via"),
                         		rs.getString("paese"),
                         		rs.getString("provincia"),
