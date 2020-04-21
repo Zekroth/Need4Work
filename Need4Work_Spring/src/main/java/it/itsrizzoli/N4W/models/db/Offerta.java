@@ -30,7 +30,7 @@ public class Offerta implements Serializable{
 	@NotNull
 	private Utente utente;
 	
-	@JoinColumn(name="id_asta", referencedColumnName="id_asta")
+	@JoinColumn(name="id_asta")
 	@NotNull
 	@ManyToOne
 	private Asta asta;

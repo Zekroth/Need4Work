@@ -23,8 +23,7 @@ public class Asta implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id_asta")
-	private Long id;
+	private Long idAsta;
 	
 	@ManyToOne
 	@JoinColumn(name="email_utente")
@@ -59,11 +58,11 @@ public class Asta implements Serializable{
 	private Professione professioneRichiesta;
 
 	public Long getIdAsta() {
-		return id;
+		return idAsta;
 	}
 
-	public void setIdAsta(Long idAsta) {
-		this.id = idAsta;
+	public void setIdAsta(Long id) {
+		this.idAsta = id;
 	}
 
 	public Utente getProprietarioAsta() {
@@ -153,7 +152,7 @@ public class Asta implements Serializable{
 	public Asta(Long idAsta, Utente proprietarioAsta, Date dataInizio, Date dataFine, Utente vincitoreAsta,
 			Double prezzoPartenza, Double prezzoChiusura, String titolo, String commento,
 			Professione professioneRichiesta) {
-		this.id = idAsta;
+		this.idAsta = idAsta;
 		this.proprietarioAsta = proprietarioAsta;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
