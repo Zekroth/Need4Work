@@ -10,7 +10,7 @@
 	<table>
 	   <th:block th:each="offerta : ${offerte}">
 		  <tr>
-		     <td th:text="${offerta.email_utente}"></td>
+		     <td th:text="${offerta.utente.getEmail()}"></td>
 		     <td th:text="${offerta.prezzo}"></td>
 		 </tr>
 	   </th:block>
