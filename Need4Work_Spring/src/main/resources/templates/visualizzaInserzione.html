@@ -5,8 +5,8 @@
 <title>Asta</title>
 </head>
 <body>
-	<p th:text="${asta.titolo}"/>
-	<p th:text="${asta.descrizione}"/>
+	<h1><p th:text="${asta.titolo}"/></h1>
+	<p th:text="${asta.commento}"/>
 	<table>
 	   <th:block th:each="offerta : ${offerte}">
 		  <tr>

@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.itsrizzoli.N4W.dao.AstaDao;
+import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
+import it.itsrizzoli.N4W.models.db.Offerta;
 import it.itsrizzoli.N4W.models.db.Utente;
 
 @Controller
@@ -31,6 +33,8 @@ public class InserzionistaController {
 	private AstaDao astaRepository;
 	@Autowired
 	private UtenteDao userRepository;
+	@Autowired
+	private OffertaDao offertaRepository;
 	
 	@GetMapping("/creazioneInserzione")
 	public String creazioneInserzione(Asta asta) {
@@ -86,6 +90,19 @@ public class InserzionistaController {
 			return "paginaUtenteInserzionista";
 		}
 		return "redirect:/login";
+	}
+	
+	@RequestMapping("/visualizza/{idAsta}")
+	public String visualizza(@PathVariable("idAsta") long idAsta, Model model) {
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		List<Offerta> offerte=offertaRepository.findByAsta(asta);
+		if (asta!=null) {
+			model.addAttribute("asta", asta);
+			model.addAttribute("offerte",offerte);
+			return "visualizzaInserzione";
+		} else {
+		return null;
+		}
 	}
 
 }
