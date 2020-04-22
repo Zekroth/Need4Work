@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Asta</title>
+</head>
+<body>
+<h1><p th:text="${asta.titolo}"/></h1>
+	<p th:text="${asta.commento}"/>
+	<table>
+	   <th:block th:each="offerta : ${offerte}">
+		  <tr>
+		     <td th:text="${offerta.email_utente}"></td>
+		     <td th:text="${offerta.prezzo}"></td>
+		 </tr>
+	   </th:block>
+	</table> 
+	
+	<form method="post" action="faiOfferta">
+		<input type="number" name="offertaFatta">
+		<button type="submit">Fai offerta</button>
+	</form>
+	
+</body>
+</html>
