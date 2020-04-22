@@ -96,12 +96,13 @@ public class InserzionistaController {
 	public String visualizza(@PathVariable("idAsta") long idAsta, Model model) {
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
+		//da ordinare la lista offerte
 		if (asta!=null) {
 			model.addAttribute("asta", asta);
 			model.addAttribute("offerte",offerte);
 			return "visualizzaInserzione";
 		} else {
-		return null;
+			return null;
 		}
 	}
 
