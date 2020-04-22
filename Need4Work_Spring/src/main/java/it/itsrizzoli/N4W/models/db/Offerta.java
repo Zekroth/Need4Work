@@ -22,7 +22,7 @@ public class Offerta implements Serializable{
 
 	@Id
 	@NotNull
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@JoinColumn(name="email_utente")

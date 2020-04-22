@@ -8,14 +8,18 @@
 	<h1><p th:text="${asta.titolo}"/></h1>
 	<p th:text="${asta.commento}"/>
 	<table>
-	   <th:block th:each="offerta : ${offerte}">
-		  <tr>
-		     <td th:text="${offerta.email_utente}"></td>
-		     <td th:text="${offerta.prezzo}"></td>
-		     <td><a th:href="@{'profiloProfessionista/' + ${offerta.getEmail_utente()}}">Visualizza profilo professionista</a></td>
-		     <td><a th:href="@{'astaAccettata/' + ${offerta.getEmail_utente()}}">Accetta</a></td>
-		  </tr>
-	   </th:block>
+	<tr>
+		<td>Utente</td>
+		<td>Offerta</td>
+	</tr>
+		   <th:block th:each="offerta : ${offerte}">
+			  <tr>
+			     <td th:text="${offerta.utente.getEmail()}"></td>
+			     <td th:text="${offerta.prezzo}"></td>
+			     <td><a th:href="@{'profiloProfessionista/' + ${offerta.getUtente().getEmail()}}">Visualizza profilo professionista</a></td>
+			     <td><a th:href="@{'astaAccettata/' + ${offerta.getUtente().getEmail()}}">Accetta</a></td>
+			  </tr>
+		   </th:block>
 	</table> 
 </body>
 </html>

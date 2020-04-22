@@ -87,9 +87,9 @@ public class ProfessionistaController {
 	}
 	
 	@PostMapping("/faiOfferta")
-	public String postFaiOfferta(@RequestParam ("prezzo") double prezzo, @RequestParam ("idAsta") long idAsta, BindingResult res, Model model, HttpSession session) {
+	public String postFaiOfferta(@RequestParam ("prezzo") double prezzo, @RequestParam ("idAsta") long idAsta, Model model, HttpSession session) {
 		Utente utente=(Utente) session.getAttribute("loggedUser");
-		if (utente!=null && res.hasErrors()==false) {
+		if (utente!=null) {
 			Offerta offerta=new Offerta();
 			Asta asta=astaRepository.findByidAsta(idAsta);
 			offerta.setPrezzo(prezzo);
