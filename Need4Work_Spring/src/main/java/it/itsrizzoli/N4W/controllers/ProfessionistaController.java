@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,7 +75,7 @@ public class ProfessionistaController {
 	}
 	
 	@GetMapping("/inserzioneCercata/{idAsta}")
-	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model) {
+	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model, Offerta offerta) {
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
@@ -86,21 +88,17 @@ public class ProfessionistaController {
 		}
 	}
 	
-	@PostMapping("/faiOfferta")
-	public String postFaiOfferta(@RequestParam ("prezzo") double prezzo, @RequestParam ("idAsta") long idAsta, Model model, HttpSession session) {
-		Utente utente=(Utente) session.getAttribute("loggedUser");
-		if (utente!=null) {
-			Offerta offerta=new Offerta();
-			Asta asta=astaRepository.findByidAsta(idAsta);
-			offerta.setPrezzo(prezzo);
-			offerta.setAsta(asta);
-			offerta.setUtente(utente);
-			offertaRepository.save(offerta);
-			model.addAttribute("msg", "Offerta andata a buon fine");
-			return "redirect:/profile";
-		} else {
+	@PostMapping("/faiOfferta/{idAsta}")
+	public String postFaiOfferta(@Valid Offerta offerta, @PathVariable ("idAsta") long idAsta, BindingResult res, Model model, HttpSession session) {
+		if (res.hasErrors())
 			return "inserzioneCercata";
-		}
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		offerta.setAsta(asta);
+		offerta.setUtente((Utente) session.getAttribute("loggedUser"));
+		offertaRepository.save(offerta);
+		model.addAttribute("msg", "Offerta andata a buon fine");
+		return "redirect:/profile";
+		
 	}
 	
 }
