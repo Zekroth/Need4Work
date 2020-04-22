@@ -93,4 +93,11 @@ public class Offerta implements Serializable{
 	}
 	
 	
+	public Offerta(@NotNull Utente utente, @NotNull Asta asta,
+			@NotNull @DecimalMax("9999.99") @DecimalMin("0020.00") Double prezzo) {
+		this.utente = utente;
+		this.asta = asta;
+		this.prezzo = prezzo;
+	}
+	
 }
