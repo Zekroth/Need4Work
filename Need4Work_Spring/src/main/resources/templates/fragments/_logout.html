@@ -1,0 +1,5 @@
+<footer th:if="${session.loggedUser != null}">
+	<a th:href="@{~/logout}">
+		<button class="btn btn-outline-dark">Logout</button>
+	</a>
+</footer>

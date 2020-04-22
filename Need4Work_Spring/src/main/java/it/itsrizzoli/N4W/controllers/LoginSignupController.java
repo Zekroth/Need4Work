@@ -67,6 +67,13 @@ public class LoginSignupController {
 			return "redirect:/pro/profile";	//da modificare per far andare in una pagina o l'altra a seconda di chi si sia autenticato
 		}
 	}
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		if(session.getAttribute("loggedUser") != null) {
+			session.removeAttribute("loggedUser");
+		}
+		return "redirect:/hp";
+	}
 	
 	@GetMapping("/iscrizioneEseguita")
 	public String iscrizioneEseguita() {

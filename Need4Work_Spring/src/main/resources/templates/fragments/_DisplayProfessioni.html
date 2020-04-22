@@ -1,10 +1,25 @@
-<div id="rootDispProfessioni">
-	<table>
-		<th:block th:each="professione: ${Professioni}">
-			<tr>
-				<td th:text="${professione.id}"></td>
-				<td th:text="${professione.tipologia}"></td>
-			</tr>
-		</th:block>
-	</table>
-</div>
+<html>
+	<head>
+		<th:block th:include="fragments/_layout.html :: head" />
+	</head>
+	<body>
+		<div id="rootDispProfessioni" th:if="${session.loggedUser != null}">
+			<table class="table table-striped">
+				<th:block th:each="professione: ${Professioni}">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Tipologia</th>
+						</tr>
+					</thead>
+					<tbody >
+						<tr>
+							<td th:text="${professione.id}"></td>
+							<td th:text="${professione.tipologia}"></td>
+						</tr>
+					</tbody>
+				</th:block>
+			</table>
+		</div>
+	</body>
+</html>
