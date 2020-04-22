@@ -72,6 +72,19 @@ public class ProfessionistaController {
 		return "profiloProfessionista";
 	}
 	
+	@GetMapping("/inserzioneCercata/{idAsta}")
+	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model) {
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		List<Offerta> offerte=offertaRepository.findByAsta(asta);
+		//da ordinare la lista offerte
+		if(asta!=null) {
+			model.addAttribute("offerte",offerte);
+			model.addAttribute("asta", asta);
+			return "inserzioneCercata";
+		} else {
+			return null;
+		}
+	}
 	
 	@PostMapping("/faiOfferta")
 	public String postFaiOfferta(@RequestParam ("prezzo") double prezzo, @RequestParam ("idAsta") long idAsta, BindingResult res, Model model, HttpSession session) {
