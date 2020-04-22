@@ -16,8 +16,8 @@
 	   </th:block>
 	</table> 
 	
-	<form method="post" th:action="@{'/pro/faiOfferta/' + ${asta.getIdAsta()}}" th:object="${offerta}">
-		<input type="number" name="prezzo" th:field="*{prezzo}">
+	<form method="post" th:action="@{'/pro/faiOfferta/' + ${asta.getIdAsta()}}">
+		<input type="number" name="prezzo">
 		<button type="submit">Fai offerta</button>
 	</form>
 	

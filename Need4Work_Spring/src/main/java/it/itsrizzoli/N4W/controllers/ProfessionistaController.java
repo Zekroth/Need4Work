@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.itsrizzoli.N4W.dao.AstaDao;
+import it.itsrizzoli.N4W.dao.OffertJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.ProfessioneDao;
 import it.itsrizzoli.N4W.dao.ProfessionistaDao;
@@ -43,7 +44,7 @@ public class ProfessionistaController {
 	@Autowired
 	private AstaDao astaRepository;
 	@Autowired
-	private UtenteDao userRepository;
+	private OffertJdbcDao jdbcOfferta;
 	@Autowired
 	private OffertaDao offertaRepository;
 	
@@ -129,7 +130,7 @@ public class ProfessionistaController {
 	}
 	
 	@GetMapping("/inserzioneCercata/{idAsta}")
-	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model, Offerta offerta) {
+	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model) {
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
@@ -143,15 +144,17 @@ public class ProfessionistaController {
 	}
 	
 	@PostMapping("/faiOfferta/{idAsta}")
-	public String postFaiOfferta(@Valid Offerta offerta, @PathVariable ("idAsta") long idAsta, BindingResult res, Model model, HttpSession session) {
-		if (res.hasErrors())
-			return "inserzioneCercata";
-		Asta asta=astaRepository.findByidAsta(idAsta);
+	public String postFaiOfferta(@RequestParam("prezzo") double prezzo, @PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
+		
+		/*Asta asta=astaRepository.findByidAsta(idAsta);
 		offerta.setAsta(asta);
 		offerta.setUtente((Utente) session.getAttribute("loggedUser"));
-		offertaRepository.save(offerta);
+		offertaRepository.save(offerta);*/
+		
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		jdbcOfferta.pubblicaOfferta(utente.getEmail(), idAsta, prezzo);
 		model.addAttribute("msg", "Offerta andata a buon fine");
-		return "redirect:/profile";
+		return "redirect:/pro/profile";
 		
 	}
 	
