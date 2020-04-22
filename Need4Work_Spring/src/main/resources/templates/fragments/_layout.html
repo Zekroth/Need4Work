@@ -1,19 +1,32 @@
 <html>
 	<head th:fragment="head">
 		<head>
-			<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
+			
 			<script
 			  src="https://code.jquery.com/jquery-3.5.0.js"
 			  integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
 			  crossorigin="anonymous">
+			</script>
+			<script>
+				var cssId = 'myCss';  // you could encode the css path itself to generate id..
+				if (!document.getElementById(cssId))
+				{
+				    var head  = document.getElementsByTagName('head')[0];
+				    var link  = document.createElement('link');
+				    link.id   = cssId;
+				    link.rel  = 'stylesheet';
+				    link.type = 'text/css';
+				    link.href = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css';
+				    link.media = 'all';
+				    head.appendChild(link);
+				}
 			</script>
 		</head>
 	</head>
 	<body th:fragment="navbar">
 	
 		<header role="banner">
-			<nav class="navbar navbar-dark navbar-expand-lg bg-dark nav-tabs">
+			<nav class="navbar navbar-dark navbar-expand-lg bg-dark nav-tabs sticky-top">
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     			 	<span class="navbar-toggler-icon"></span>
 				</button>
@@ -24,6 +37,13 @@
 					</li>
 					<li th:unless="session.loggedUser == null" class="nav-item">
 						<a class="nav-link" th:href="@{~/pro/profile}">Profile</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto" >
+					<li th:unless="session.loggedUser == null" class="nav-item">
+						<a  th:href="@{~/logout}">
+							<button class="btn btn-outline-primary">Logout</button>
+						</a>
 					</li>
 				</ul>
 			</nav>

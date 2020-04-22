@@ -6,7 +6,7 @@
 <title>Profilo professionista</title>
 <th:block th:include="fragments/_layout.html" />
 </head>
-<body>
+<body >
 
 		</br> 
 	<div th:object="${session.loggedUser}">
@@ -19,10 +19,20 @@
   				Non sei loggato torna alla pagina di <a th:href="@{~/login}">Login</a>
 			</div>
 		</span>
-		<iframe th:src="@{~/dp?email=} + ${session.loggedUser.email}" th:unless="${session == null && (param.email == null || param.email == '')}">
-			<p>No frame support :c</p>
-		</iframe>
+		<div id="userBody">
+			<div id="professioni" class="mx-auto float-left	" style="width: 20vw">
+				<p class="badge text-wrap badge-info">Professioni dell'utente</p>
+				<div class="embed-responsive embed-responsive-1by1">
+				 	<iframe class="embed-responsive-item"  scrolling="auto" th:src="@{~/dp?email=} + ${session.loggedUser.email}" th:unless="${session.loggedUser == null && (param.email == null || param.email == '')}">
+				 		<p>No frame support :c</p>
+				 	</iframe>
+				</div>
+			</div>
+			
+		</div>
+		
 	</div>
+	
 	
 </body>
 </html>
