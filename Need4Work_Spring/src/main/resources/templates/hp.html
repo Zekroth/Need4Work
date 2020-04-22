@@ -11,10 +11,13 @@
 		Loading Failed
 	</header>
 	
-	<div class="jumbotron">
+	<div id="welcome" class="jumbotron" th:if="${session.loggedUser == null}")>
 		<h1>Welcome to Need4Work</h1>
 		<h3><a th:href="@{~/login}">Login</a> to start using the platform</h3>
 	</div>
-	
+	<div id="navigate" class="jumbotron" th:if="${session.loggedUser != null}">
+		<!-- LISTA LAVORI -->
+		<p> da rimpiazzare con lista lavori </p>
+	</div>
 </body>
 </html>

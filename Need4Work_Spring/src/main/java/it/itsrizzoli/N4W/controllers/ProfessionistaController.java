@@ -1,9 +1,11 @@
 package it.itsrizzoli.N4W.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +27,10 @@ import it.itsrizzoli.N4W.dao.ProfessionistaDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Offerta;
+import it.itsrizzoli.N4W.models.db.Professione;
 import it.itsrizzoli.N4W.models.db.Professionista;
 import it.itsrizzoli.N4W.models.db.Utente;
+import it.itsrizzoli.N4W.models.db.id.ProfessionistaId;
 
 @Controller
 @RequestMapping("/pro")
@@ -44,12 +49,63 @@ public class ProfessionistaController {
 	
 	@GetMapping("/add")
 	public String addProfessionist(HttpSession session, Model model) {
-		model.addAttribute("professionList", professionRepo.findAll());
+		
+		Iterable<Professione> professionIter = professionRepo.findAll();
+		List<Professione> professionList = new ArrayList<Professione>();
+		professionIter.forEach(professionList :: add);
+		Utente u = (Utente) session.getAttribute("loggedUser");
+		if(u == null) {
+			return "redirect:/hp";
+		}else {
+			professionList.removeIf(x -> !professionistRepo.findById(new ProfessionistaId(u, x)).isEmpty());
+		}
+		model.addAttribute("professionList", professionList);
+		return "selezioneProfessione";
+	}
+	@GetMapping("/edit")
+	public String editProfessionistProfessions(HttpSession session, Model model) {
+		
+		Iterable<Professione> professionIter = professionRepo.findAll();
+		List<Professione> professionList = new ArrayList<Professione>();
+		professionIter.forEach(professionList :: add);
+		
+		model.addAttribute("professionList", professionList);
+		Utente u = (Utente) session.getAttribute("loggedUser");
+		
+		if(u == null) {
+			return "redirect:/hp";
+		}else {
+			professionList.removeIf(x -> !professionistRepo.findById(new ProfessionistaId(u, x)).isEmpty());
+		}
+		model.addAttribute("userProfessions", professionList);
+		
+		return "";
+	}
+	@PostMapping("/edit")
+	public String editProfessionistProfessions(HttpSession session, Model model, @RequestParam("selected") List<String> selected) {
 		
 		if(session.getAttribute("loggedUser")== null) {
-			return "redirect:/hp";
+			return "redirect:/error";
 		}
-		return "selezioneProfessione";
+		Utente u = (Utente) session.getAttribute("loggedUser");
+		Iterable<Professione> professionIter = professionRepo.findAll();
+		List<Professione> professionList = new ArrayList<Professione>();
+		professionIter.forEach(professionList :: add);
+		
+		
+		selected.forEach(x-> {
+			Long l = Long.parseLong(x);
+			
+			professionistRepo.save(new Professionista(u, professionRepo.findById(l).get()));
+			professionList.removeIf(y -> y.getId() == l);
+			
+		});
+		
+		professionList.forEach(x->{
+			professionistRepo.delete(new Professionista(u, x));
+			});
+		
+		return "redirect:/hp";
 	}
 	
 	@PostMapping(value = "/add")
@@ -73,7 +129,7 @@ public class ProfessionistaController {
 	}
 	
 	@GetMapping("/inserzioneCercata/{idAsta}")
-	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model) {
+	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model, Offerta offerta) {
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
@@ -86,21 +142,17 @@ public class ProfessionistaController {
 		}
 	}
 	
-	@PostMapping("/faiOfferta")
-	public String postFaiOfferta(@RequestParam ("prezzo") double prezzo, @RequestParam ("idAsta") long idAsta, Model model, HttpSession session) {
-		Utente utente=(Utente) session.getAttribute("loggedUser");
-		if (utente!=null) {
-			Offerta offerta=new Offerta();
-			Asta asta=astaRepository.findByidAsta(idAsta);
-			offerta.setPrezzo(prezzo);
-			offerta.setAsta(asta);
-			offerta.setUtente(utente);
-			offertaRepository.save(offerta);
-			model.addAttribute("msg", "Offerta andata a buon fine");
-			return "redirect:/profile";
-		} else {
+	@PostMapping("/faiOfferta/{idAsta}")
+	public String postFaiOfferta(@Valid Offerta offerta, @PathVariable ("idAsta") long idAsta, BindingResult res, Model model, HttpSession session) {
+		if (res.hasErrors())
 			return "inserzioneCercata";
-		}
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		offerta.setAsta(asta);
+		offerta.setUtente((Utente) session.getAttribute("loggedUser"));
+		offertaRepository.save(offerta);
+		model.addAttribute("msg", "Offerta andata a buon fine");
+		return "redirect:/profile";
+		
 	}
 	
 }

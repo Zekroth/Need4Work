@@ -50,7 +50,10 @@ public class LoginSignupController {
 	}
 	
 	@GetMapping("/login")
-	public String login(LoginForm loginForm) {
+	public String login(LoginForm loginForm, HttpSession session) {
+		if(session.getAttribute("loggedUser") != null) {
+			return "redirect:/";
+		}
 		System.out.println("Some1 tried to log");
 		return "login";
 	}

@@ -1,11 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<th:block th:include="fragments/_layout.html :: head">
+		</th:block>
 		<meta charset="UTF-8">
 		<title>ERRORE</title>
 	</head>
 	<body>
-		<h1 style="color:red">C'è stato un errore nell'esecuzione del programma</h1>
-		<a href="/"><button>Go Back</button></a>
+		<th:block th:include="fragments/_layout.html :: navbar">
+			Include Navbar Failed
+		</th:block>
+		<div class="alert alert-danger" role="alert">
+  				C'è stato un errore, torna alla <a th:href="@{~/hp}">Homepage</a>
+		</div>
+		<a onclick="history.go(-1)"><button class="btn btn-danger">Go Back</button></a>
 	</body>
 </html>

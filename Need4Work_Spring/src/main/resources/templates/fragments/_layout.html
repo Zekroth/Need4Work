@@ -32,7 +32,7 @@
 				</button>
 				<a class="navbar-brand" th:href="@{~/}">HomePage</a>
 				<ul class="navbar-nav mr-auto" >
-					<li class="nav-item">
+					<li class="nav-item" th:if="${session.loggedUser == null}">
 						<a class="nav-link" href="/login">Login</a>
 					</li>
 					<li th:if="${session.loggedUser != null}" class="nav-item">
