@@ -19,11 +19,11 @@
   				Non sei loggato torna alla pagina di <a th:href="@{~/login}">Login</a>
 			</div>
 		</span>
-		<div id="userBody">
+		<div id="userBody" th:unless="${session.loggedUser == null && (param.email == null || param.email == '')}" style="height:100000px">
 			<div id="professioni" class="mx-auto float-left	" style="width: 20vw">
 				<p class="badge text-wrap badge-info">Professioni dell'utente</p>
 				<div class="embed-responsive embed-responsive-1by1">
-				 	<iframe class="embed-responsive-item"  scrolling="auto" th:src="@{~/dp?email=} + ${session.loggedUser.email}" th:unless="${session.loggedUser == null && (param.email == null || param.email == '')}">
+				 	<iframe class="embed-responsive-item"  scrolling="auto" th:src="@{~/dp?email=} + ${session.loggedUser.email}"  >
 				 		<p>No frame support :c</p>
 				 	</iframe>
 				</div>

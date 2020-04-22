@@ -72,7 +72,7 @@ public class LoginSignupController {
 		if(session.getAttribute("loggedUser") != null) {
 			session.removeAttribute("loggedUser");
 		}
-		return "redirect:/hp";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/iscrizioneEseguita")
