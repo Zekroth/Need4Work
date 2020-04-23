@@ -35,5 +35,25 @@ public class UserJdbcDao {
                         )
         );
     }
+	
+	public List<Utente> findUser(String email) {
+        return jdbcTemplate.query(
+                "select * from utente where email = ?",
+                new Object[]{email},
+                (rs, rowNum) ->
+                        new Utente(
+                        		rs.getString("nome"),
+                        		rs.getString("cognome"),
+                        		rs.getDate("data_nascita"),
+                        		rs.getString("via"),
+                        		rs.getString("paese"),
+                        		rs.getString("provincia"),
+                        		rs.getString("email"),
+                        		rs.getString("cellulare"),
+                        		rs.getString("password"),
+                        		rs.getInt("cap")
+                        )
+        );
+    }
 
 }

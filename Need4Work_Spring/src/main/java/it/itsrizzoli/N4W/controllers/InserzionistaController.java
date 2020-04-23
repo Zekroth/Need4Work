@@ -26,6 +26,8 @@ import it.itsrizzoli.N4W.dao.LavoroDao;
 import it.itsrizzoli.N4W.dao.LavoroJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.RecensioneDao;
+import it.itsrizzoli.N4W.dao.RecensioniJdbcDao;
+import it.itsrizzoli.N4W.dao.UserJdbcDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Lavoro;
@@ -48,6 +50,10 @@ public class InserzionistaController {
 	private RecensioneDao recensioneRepository;
 	@Autowired
 	private LavoroJdbcDao jdbcLavoro;
+	@Autowired
+	private RecensioniJdbcDao jdbcRecensioni;
+	@Autowired
+	private UserJdbcDao jdbcUser;
 	
 	@GetMapping("/creazioneInserzione")
 	public String creazioneInserzione(Asta asta) {
@@ -151,6 +157,15 @@ public class InserzionistaController {
 		lavoro.setRecensione(recensione);
 		lavoroRepository.save(lavoro);
 		return "redirect:/paginaUtenteInserzionista";
+	}
+	
+	@GetMapping("/visualizza/visualizzaUtente/{email}")
+	public String visualizzaUtente(Recensione recensione, @PathVariable String email, Model model) {
+		List<Utente> utente=jdbcUser.findUser(email);
+		List<Recensione> lavori=jdbcRecensioni.getAllRecensioni(email);
+		model.addAttribute("utente",utente.get(0));
+		model.addAttribute("lavori",lavori);
+		return "accountProfiloProfessionista";
 	}
 
 }
