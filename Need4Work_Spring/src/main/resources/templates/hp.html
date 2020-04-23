@@ -16,8 +16,25 @@
 		<h3><a th:href="@{~/login}">Login</a> to start using the platform</h3>
 	</div>
 	<div id="navigate" class="jumbotron" th:if="${session.loggedUser != null}">
-		<!-- LISTA ASTE -->
-		<p> da rimpiazzare con lista aste </p>
+		<table>
+			<tr>
+				<td>Titolo</td>
+				<td>Descrizione</td>
+				<td>Prezzo di partenza</td>
+				<td>Data fine asta</td>
+				<td>Professione richiesta</td>
+			</tr>
+			<th:block th:each="asta:${aste}">
+				<tr>
+					<td th:text="${asta.titolo}"></td>
+					<td th:text="${asta.commento}"></td>
+					<td th:text="${asta.prezzoPartenza}"></td>
+					<td th:text="${asta.dataFine}"></td>
+					<td th:text="${asta.professioneRichiesta.getTipologia()}"></td>
+					<td><a th:href="@{'pro/inserzioneCercata/' + ${asta.getIdAsta()}}">Visualizza asta</a></td>
+				</tr>
+			</th:block>
+		</table>
 	</div>
 </body>
 </html>
