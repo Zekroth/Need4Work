@@ -56,7 +56,10 @@ public class InserzionistaController {
 	private UserJdbcDao jdbcUser;
 	
 	@GetMapping("/creazioneInserzione")
-	public String creazioneInserzione(Asta asta) {
+	public String creazioneInserzione(Asta asta, HttpSession session) {
+		Utente u=(Utente) session.getAttribute("loggedUser");
+		if (u==null)
+			return "redirect:/login";
 		return "creazioneInserzione";
 	}
 	
@@ -144,10 +147,15 @@ public class InserzionistaController {
 	}
 	
 	@GetMapping("/scriviRecensione/{id}")
-	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model) {
-		Lavoro lavoro=(Lavoro) lavoroRepository.findById(id);
-		model.addAttribute("lavoro",lavoro);
-		return "scriviRecensione";
+	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model, HttpSession session) {
+		Utente utente=(Utente) session.getAttribute("loggedUser");
+		if (utente!=null) {
+			Lavoro lavoro=(Lavoro) lavoroRepository.findById(id);
+			model.addAttribute("lavoro",lavoro);
+			return "scriviRecensione";
+		} else {
+			return "redirect:/login";
+		}
 	}
 	
 	@PostMapping("/scriviRecensione")
@@ -160,7 +168,10 @@ public class InserzionistaController {
 	}
 	
 	@GetMapping("/visualizza/visualizzaUtente/{email}")
-	public String visualizzaUtente(@PathVariable ("email") String email, Model model) {
+	public String visualizzaUtente(@PathVariable ("email") String email, Model model, HttpSession session) {
+		Utente u=(Utente) session.getAttribute("loggedUser");
+		if (u==null)
+			return "redirect:/login";
 		email=email+"%";
 		List<Utente> utente=jdbcUser.findUser(email);
 		List<Recensione> lavori=jdbcRecensioni.getAllRecensioni(utente.get(0).getEmail());
