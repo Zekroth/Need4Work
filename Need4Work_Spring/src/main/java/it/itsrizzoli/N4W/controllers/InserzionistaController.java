@@ -1,9 +1,7 @@
 package it.itsrizzoli.N4W.controllers;
 
 import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -25,6 +23,7 @@ import it.itsrizzoli.N4W.dao.AstaDao;
 import it.itsrizzoli.N4W.dao.LavoroDao;
 import it.itsrizzoli.N4W.dao.LavoroJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
+import it.itsrizzoli.N4W.dao.ProfessioneDao;
 import it.itsrizzoli.N4W.dao.RecensioneDao;
 import it.itsrizzoli.N4W.dao.RecensioniJdbcDao;
 import it.itsrizzoli.N4W.dao.UserJdbcDao;
@@ -49,6 +48,8 @@ public class InserzionistaController {
 	@Autowired
 	private RecensioneDao recensioneRepository;
 	@Autowired
+	private ProfessioneDao professioneRepository;
+	@Autowired
 	private LavoroJdbcDao jdbcLavoro;
 	@Autowired
 	private RecensioniJdbcDao jdbcRecensioni;
@@ -64,11 +65,15 @@ public class InserzionistaController {
 	}
 	
 	@PostMapping("/creazioneInserzione")
-	public String postCreazioneInserzione(@Valid Asta asta, BindingResult res, Model model, HttpSession session) {
+	public String postCreazioneInserzione(@Valid Asta asta, @RequestParam ("professione") long professione, BindingResult res, Model model, HttpSession session) {
 		if (res.hasErrors())
 			return "creazioneInserzione";
 		
+		java.util.Date d=new java.util.Date();
+		Date date=new Date(d.getTime());
+		asta.setDataInizio(date);
 		asta.setProprietarioAsta((Utente) session.getAttribute("loggedUser"));
+		asta.setProfessioneRichiesta(professioneRepository.findById(professione));
 		asta.setPrezzoChiusura(null);
 		asta.setVincitoreAsta(null);
 		astaRepository.save(asta);
