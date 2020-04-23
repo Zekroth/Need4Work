@@ -30,7 +30,7 @@ public class HelloController {
 		java.util.Date d=new java.util.Date();
 		Date oggi=new Date(d.getTime());
 		for (Asta a:astaList) {
-			if(a.getDataFine().compareTo(oggi)>=0)
+			if(a.getDataFine().compareTo(oggi)>=0 && a.getVincitoreAsta()==null)
 				aste.add(a);
 		}
 		model.addAttribute("aste",aste);
