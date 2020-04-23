@@ -160,9 +160,10 @@ public class InserzionistaController {
 	}
 	
 	@GetMapping("/visualizza/visualizzaUtente/{email}")
-	public String visualizzaUtente(Recensione recensione, @PathVariable String email, Model model) {
+	public String visualizzaUtente(@PathVariable ("email") String email, Model model) {
+		email=email+"%";
 		List<Utente> utente=jdbcUser.findUser(email);
-		List<Recensione> lavori=jdbcRecensioni.getAllRecensioni(email);
+		List<Recensione> lavori=jdbcRecensioni.getAllRecensioni(utente.get(0).getEmail());
 		model.addAttribute("utente",utente.get(0));
 		model.addAttribute("lavori",lavori);
 		return "accountProfiloProfessionista";

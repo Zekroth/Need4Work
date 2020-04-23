@@ -38,7 +38,7 @@ public class UserJdbcDao {
 	
 	public List<Utente> findUser(String email) {
         return jdbcTemplate.query(
-                "select * from utente where email = ?",
+                "select * from utente where email like ?",
                 new Object[]{email},
                 (rs, rowNum) ->
                         new Utente(
