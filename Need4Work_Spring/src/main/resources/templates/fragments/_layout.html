@@ -36,7 +36,10 @@
 						<a class="nav-link" href="/login">Login</a>
 					</li>
 					<li th:if="${session.loggedUser != null}" class="nav-item">
-						<a class="nav-link" th:href="@{~/pro/profile}">Profile</a>
+						<a class="nav-link" th:href="@{~/pro/profile}">Professionista</a>
+					</li>
+					<li th:if="${session.loggedUser != null}" class="nav-item">
+						<a class="nav-link" th:href="@{~/paginaUtenteInserzionista}">Inserzionista</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav ml-auto" >
