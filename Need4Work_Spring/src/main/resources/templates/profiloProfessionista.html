@@ -19,14 +19,14 @@
   				Non sei loggato torna alla pagina di <a th:href="@{~/login}">Login</a>
 			</div>
 		</span>
-		<div id="userBody" th:unless="${session.loggedUser == null && (param.email == null || param.email == '')}" >
+		<div class="container" id="userBody" th:unless="${session.loggedUser == null && (param.email == null || param.email == '')}" >
 			
 			<div id=datiUtente >
 				<h2>Dati Utente</h2>
 				<label ></label>
 			</div>
 			
-			<div id="professioni" class="mx-auto float-left	" style="width: 20vw">
+			<div id="professioni" style="width: 20vw">
 				<p class="badge text-wrap badge-info">Professioni dell'utente</p>
 				<div class="embed-responsive embed-responsive-1by1">
 				 	<iframe class="embed-responsive-item"  scrolling="auto" th:src="@{~/dp?email=} + ${session.loggedUser.email}"  >
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			
-			<div id="professioni" class="mx-auto float-left	" style="width: 20vw">
+			<div id="professioni" style="width: 20vw">
 				<p class="badge text-wrap badge-info">Professioni dell'utente</p>
 				<div class="embed-responsive embed-responsive-1by1">
 				 	<iframe class="embed-responsive-item"  scrolling="auto" th:src="@{~/dp?email=} + ${session.loggedUser.email}"  >

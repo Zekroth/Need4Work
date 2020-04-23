@@ -1,8 +1,29 @@
-<form action="#" th:action="@{add}"  method="POST">
-	<select id="selected" name="selected" multiple>
-	    <option name="selected" th:each="profession : ${professionList}"
-	       th:value="${profession.id}"
-	       th:utext="${profession.tipologia}"/>
-    </select>
-    <input type="submit" value="Submit" />
-</form>
+<head>
+	<th:block th:include="@{fragments/_layout.html} :: head">
+		Thymeleaf include not working
+	</th:block>
+</head>
+<body>
+	<form action="#" th:action="@{edit}"  method="POST">
+		<div class="form-group">
+			<label class="">Select all your professions</label>
+			<select class="custom-select"  id="selected" name="selected"  multiple>
+			    
+			    <option name="selected" th:each="profession : ${professionList}"
+			       th:value="${profession.id}"
+			       th:id="${profession.id}"
+			       th:utext="${profession.tipologia}"
+			       >
+			    </option>
+			    <script th:each="upro : ${userProfessions}" th:inline="javascript">
+				    /*<![CDATA[*/
+				    
+			        	document.getElementById( /*[[${upro.id}]]*/ '').setAttribute("selected","");
+	
+			       /*]]>*/
+			    </script>
+		    </select>
+		</div>
+	    <input class="btn btn-outline-secondary" type="submit" value="Submit" />
+	</form>
+</body>

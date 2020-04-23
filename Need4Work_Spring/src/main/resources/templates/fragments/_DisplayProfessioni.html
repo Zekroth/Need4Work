@@ -21,8 +21,8 @@
 				</th:block>
 			</table>
 			<th:block th:if="${session.loggedUser.email.equals(#request.getParameter('email'))}">
-				<a th:href="@{~/pro/edit}"><button class="btn btn-outline-dark" target="edit_tab">Edit</button></a>
-				<iframe id="edit_tab"></iframe>
+				<a th:href="@{~/pro/edit(email=${session.loggedUser.email})}"><button class="btn btn-outline-dark" target="edit_tab" onclick="document.getElementById('edit_tab').style.display = 'inline';">Edit</button></a>
+				<iframe id="edit_tab" style="display:none"></iframe>
 			</th:block>
 		</div>
 	</body>
