@@ -10,7 +10,7 @@
 <p align="center">Lascia la tua recensione</p>
 </h1>
 <form class="form-horizontal" method="POST" th:action="@{/scriviRecensione}" th:object="${recensione}">
-	<input type="hidden" name="idLavoro" th:value="${lavoro.id}">
+	<input type="hidden" name="idLavoro" th:value="${lavoro.getId()}">
 			<div class="form-group">
 				<div class="col-sm-8">	
 					<textarea class="form-control" rows="5" id="commento" th:field="*{commento}" placeholder="Scrivi qui la tua recensione..." required></textarea>

@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 @Entity
 public class Recensione implements Serializable{
 	
-	@NotNull
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -61,5 +60,12 @@ public class Recensione implements Serializable{
 	 */
 	public Recensione() {
 	}
+
+	public Recensione(@Size(max = 500) String commento, int voto) {
+		this.commento = commento;
+		this.voto = voto;
+	}
+	
+	
 
 }

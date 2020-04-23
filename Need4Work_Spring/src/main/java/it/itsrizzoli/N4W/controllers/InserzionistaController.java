@@ -148,12 +148,14 @@ public class InserzionistaController {
 	}
 	
 	@PostMapping("/scriviRecensione")
-	public String postScrivi(@ModelAttribute Recensione recensione, @RequestParam ("idLavoro") long idLavoro) {
-		jdbcRecensione.pubblicaRecensione(recensione.getCommento(),recensione.getVoto());
+	public String postScrivi(@Valid Recensione recensione, @RequestParam ("idLavoro") long idLavoro) {
+		//jdbcRecensione.pubblicaRecensione(recensione.getCommento(),recensione.getVoto());
+		recensioneRepository.save(recensione);
 		Lavoro lavoro=(Lavoro) lavoroRepository.findById(idLavoro);
-		
-		jdbcRecensione.associaRecensione(recensione.getId(), idLavoro);
-		return "scriviRecensione";
+		lavoro.setRecensione(recensione);
+		lavoroRepository.save(lavoro);
+		//jdbcRecensione.associaRecensione(recensione.getId(), idLavoro);
+		return "redirect:/paginaUtenteInserzionista";
 	}
 
 }
