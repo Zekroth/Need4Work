@@ -158,13 +158,15 @@ public class InserzionistaController {
 		asta.setPrezzoChiusura(offerta.getPrezzo());
 		astaRepository.save(asta);
 		jdbcLavoro.accettaAsta(asta.getIdAsta());
+		List<Lavoro> lavoro=lavoroRepository.findByAsta(asta);
 		model.addAttribute("asta",asta);
 		model.addAttribute("utenteEmail", offerta.getUtente().getEmail());
 		model.addAttribute("utenteCellulare", offerta.getUtente().getCellulare());
+		model.addAttribute("idLavoro", lavoro.get(0).getId());
 		return "astaAccettata";
 	}
 	
-	@GetMapping("/scriviRecensione/{id}")
+	@GetMapping("/visualizzaLavoro/scriviRecensione/{id}")
 	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model, HttpSession session) {
 		Utente utente=(Utente) session.getAttribute("loggedUser");
 		if (utente!=null) {
@@ -212,9 +214,11 @@ public class InserzionistaController {
 		if (u==null)
 			return "redirect:/login";
 		Asta asta=astaRepository.findByidAsta(idAsta);
+		List<Lavoro> lavoro=lavoroRepository.findByAsta(asta);
 		model.addAttribute("asta",asta);
 		model.addAttribute("utenteEmail", asta.getVincitoreAsta().getEmail());
 		model.addAttribute("utenteCellulare",  asta.getVincitoreAsta().getCellulare());
+		model.addAttribute("idLavoro", lavoro.get(0).getId());
 		return "astaAccettata";
 	}
 
