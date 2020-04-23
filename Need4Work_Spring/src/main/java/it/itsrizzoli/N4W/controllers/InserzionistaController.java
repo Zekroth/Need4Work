@@ -18,13 +18,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.itsrizzoli.N4W.dao.AstaDao;
+import it.itsrizzoli.N4W.dao.LavoroDao;
 import it.itsrizzoli.N4W.dao.LavoroJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
+import it.itsrizzoli.N4W.dao.RecensioneDao;
+import it.itsrizzoli.N4W.dao.RecensioneJdbcDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
+import it.itsrizzoli.N4W.models.db.Lavoro;
 import it.itsrizzoli.N4W.models.db.Offerta;
 import it.itsrizzoli.N4W.models.db.Recensione;
 import it.itsrizzoli.N4W.models.db.Utente;
@@ -39,7 +44,13 @@ public class InserzionistaController {
 	@Autowired
 	private OffertaDao offertaRepository;
 	@Autowired
+	private LavoroDao lavoroRepository;
+	@Autowired
+	private RecensioneDao recensioneRepository;
+	@Autowired
 	private LavoroJdbcDao jdbcLavoro;
+	@Autowired
+	private RecensioneJdbcDao jdbcRecensione;
 	
 	@GetMapping("/creazioneInserzione")
 	public String creazioneInserzione(Asta asta) {
@@ -129,13 +140,19 @@ public class InserzionistaController {
 		return "astaAccettata";
 	}
 	
-	@GetMapping("/scriviRecensione")
-	public String scrivi(Recensione recensione) {
+	@GetMapping("/scriviRecensione/{id}")
+	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model) {
+		Lavoro lavoro=(Lavoro) lavoroRepository.findById(id);
+		model.addAttribute("lavoro",lavoro);
 		return "scriviRecensione";
 	}
 	
 	@PostMapping("/scriviRecensione")
-	public String postScrivi(@Valid Recensione recensione) {
+	public String postScrivi(@ModelAttribute Recensione recensione, @RequestParam ("idLavoro") long idLavoro) {
+		jdbcRecensione.pubblicaRecensione(recensione.getCommento(),recensione.getVoto());
+		Lavoro lavoro=(Lavoro) lavoroRepository.findById(idLavoro);
+		
+		jdbcRecensione.associaRecensione(recensione.getId(), idLavoro);
 		return "scriviRecensione";
 	}
 
