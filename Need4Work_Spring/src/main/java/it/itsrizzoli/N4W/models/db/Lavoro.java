@@ -25,7 +25,6 @@ public class Lavoro implements Serializable{
 	@OneToOne
 	private Asta asta;
 	
-	@NotNull
 	@JoinColumn(name="id_recensione")
 	@OneToOne
 	private Recensione recensione;

@@ -3,6 +3,7 @@ package it.itsrizzoli.N4W.controllers;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.itsrizzoli.N4W.dao.AstaDao;
+import it.itsrizzoli.N4W.dao.LavoroJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
@@ -35,6 +37,8 @@ public class InserzionistaController {
 	private UtenteDao userRepository;
 	@Autowired
 	private OffertaDao offertaRepository;
+	@Autowired
+	private LavoroJdbcDao jdbcLavoro;
 	
 	@GetMapping("/creazioneInserzione")
 	public String creazioneInserzione(Asta asta) {
@@ -104,6 +108,24 @@ public class InserzionistaController {
 		} else {
 			return null;
 		}
+	}
+	
+	@GetMapping("/visualizza/accetta/{id}")
+	public String accetta(@PathVariable("id") long id, HttpSession session, Model model) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		if(utente==null) {
+			return "redirect:/login";
+		}
+		Offerta offerta=offertaRepository.findById(id);
+		Asta asta=offerta.getAsta();
+		asta.setVincitoreAsta(offerta.getUtente());
+		asta.setPrezzoChiusura(offerta.getPrezzo());
+		astaRepository.save(asta);
+		jdbcLavoro.accettaAsta(asta.getIdAsta());
+		model.addAttribute("asta",asta);
+		model.addAttribute("utenteEmail", offerta.getUtente().getEmail());
+		model.addAttribute("utenteCellulare", offerta.getUtente().getCellulare());
+		return "astaAccettata";
 	}
 
 }
