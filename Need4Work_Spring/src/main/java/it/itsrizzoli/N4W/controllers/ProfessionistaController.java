@@ -158,4 +158,23 @@ public class ProfessionistaController {
 		
 	}
 	
+	@GetMapping("/inserzioneFinita/{idAsta}")
+	public String inserzioneFinita(@PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		if(utente==null) {
+			return "redirect:/login";
+		}
+		String vittoria="";
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		if (asta.getVincitoreAsta().getEmail().equals(utente.getEmail())) {
+			vittoria="Complimenti hai vinto l'asta. A breve il proprietario ti contatterà";
+		} else {
+			vittoria="Che peccato! Non sei riuscito a vincere l'asta";
+		}
+		model.addAttribute("asta", asta);
+		model.addAttribute("vittoria", vittoria);
+		return "inserzioneAstaFinita";
+	}
+	
+	
 }
