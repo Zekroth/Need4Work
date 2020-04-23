@@ -130,6 +130,9 @@ public class InserzionistaController {
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		java.util.Date d=new java.util.Date();
 		Date oggi=new Date(d.getTime());
+		if(asta.getVincitoreAsta()!=null) {
+			return "redirect:/visualizzaLavoro/"+idAsta;
+		}
 		if(asta.getDataFine().compareTo(oggi)<0) {
 			return "redirect:/astaScaduta";
 		}
@@ -201,6 +204,18 @@ public class InserzionistaController {
 		if (u==null)
 			return "redirect:/login";
 		return "astaScaduta";
+	}
+	
+	@GetMapping("/visualizzaLavoro/{idAsta}")
+	public String visualizzaUtente(@PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
+		Utente u=(Utente) session.getAttribute("loggedUser");
+		if (u==null)
+			return "redirect:/login";
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		model.addAttribute("asta",asta);
+		model.addAttribute("utenteEmail", asta.getVincitoreAsta().getEmail());
+		model.addAttribute("utenteCellulare",  asta.getVincitoreAsta().getCellulare());
+		return "astaAccettata";
 	}
 
 }
