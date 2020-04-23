@@ -135,9 +135,13 @@ public class ProfessionistaController {
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
 		if(asta!=null) {
-			model.addAttribute("offerte",offerte);
-			model.addAttribute("asta", asta);
-			return "inserzioneCercata";
+			if (asta.getVincitoreAsta()==null) {
+				model.addAttribute("offerte",offerte);
+				model.addAttribute("asta", asta);
+				return "inserzioneCercata";
+			} else {
+				return "redirect:/pro/inserzioneFinita/"+asta.getIdAsta();
+			}
 		} else {
 			return null;
 		}
