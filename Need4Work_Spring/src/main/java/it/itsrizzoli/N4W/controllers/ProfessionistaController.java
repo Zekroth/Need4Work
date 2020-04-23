@@ -135,12 +135,19 @@ public class ProfessionistaController {
 	
 	@GetMapping(value = "/profile")
 	public String viewProfile(Model model, HttpSession session) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		//List<Asta> aste=astaRepository.findByProprietarioAsta(utente);
+		List<Offerta> offerte=offertaRepository.findByUtente(utente);
+		model.addAttribute("utente",utente);
+		model.addAttribute("offerte",offerte);
 		return "profiloProfessionista";
 	}
 	
 	@GetMapping("/inserzioneCercata/{idAsta}")
 	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
 		Utente utente=(Utente)session.getAttribute("loggedUser");
+		if(utente==null)
+			return "redirect:/login";
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
@@ -163,12 +170,6 @@ public class ProfessionistaController {
 	
 	@PostMapping("/faiOfferta/{idAsta}")
 	public String postFaiOfferta(@RequestParam("prezzo") double prezzo, @PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
-		
-		/*Asta asta=astaRepository.findByidAsta(idAsta);
-		offerta.setAsta(asta);
-		offerta.setUtente((Utente) session.getAttribute("loggedUser"));
-		offertaRepository.save(offerta);*/
-		
 		Utente utente=(Utente)session.getAttribute("loggedUser");
 		jdbcOfferta.pubblicaOfferta(utente.getEmail(), idAsta, prezzo);
 		model.addAttribute("msg", "Offerta andata a buon fine");

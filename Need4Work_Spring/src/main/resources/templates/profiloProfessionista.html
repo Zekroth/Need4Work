@@ -35,14 +35,19 @@
 				</div>
 			</div>
 			
-			<div id="professioni" style="width: 20vw">
-				<p class="badge text-wrap badge-info">Professioni dell'utente</p>
-				<div class="embed-responsive embed-responsive-1by1">
-				 	<iframe class="embed-responsive-item"  scrolling="auto" th:src="@{~/dp?email=} + ${session.loggedUser.email}"  >
-				 		<p>No frame support :c</p>
-				 	</iframe>
-				</div>
-			</div>
+			<table>
+			<tr>
+				<td>Titolo</td>
+				<td>Descrizione</td>
+			</tr>
+			<th:block th:each="offerta:${offerte}">
+				<tr>
+					<td th:text="${offerta.getAsta().getTitolo()}"></td>
+					<td th:text="${offerta.getAsta().getCommento()}"></td>
+					<td><a th:href="@{'inserzioneCercata/' + ${offerta.getAsta().getIdAsta()}}">Visualizza asta</a></td>
+				</tr>
+			</th:block>
+		</table>
 			
 		</div>
 		
