@@ -26,7 +26,6 @@ import it.itsrizzoli.N4W.dao.LavoroDao;
 import it.itsrizzoli.N4W.dao.LavoroJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.RecensioneDao;
-import it.itsrizzoli.N4W.dao.RecensioneJdbcDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Lavoro;
@@ -49,8 +48,6 @@ public class InserzionistaController {
 	private RecensioneDao recensioneRepository;
 	@Autowired
 	private LavoroJdbcDao jdbcLavoro;
-	@Autowired
-	private RecensioneJdbcDao jdbcRecensione;
 	
 	@GetMapping("/creazioneInserzione")
 	public String creazioneInserzione(Asta asta) {
@@ -149,12 +146,10 @@ public class InserzionistaController {
 	
 	@PostMapping("/scriviRecensione")
 	public String postScrivi(@Valid Recensione recensione, @RequestParam ("idLavoro") long idLavoro) {
-		//jdbcRecensione.pubblicaRecensione(recensione.getCommento(),recensione.getVoto());
 		recensioneRepository.save(recensione);
 		Lavoro lavoro=(Lavoro) lavoroRepository.findById(idLavoro);
 		lavoro.setRecensione(recensione);
 		lavoroRepository.save(lavoro);
-		//jdbcRecensione.associaRecensione(recensione.getId(), idLavoro);
 		return "redirect:/paginaUtenteInserzionista";
 	}
 
