@@ -26,6 +26,7 @@ import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Offerta;
+import it.itsrizzoli.N4W.models.db.Recensione;
 import it.itsrizzoli.N4W.models.db.Utente;
 
 @Controller
@@ -126,6 +127,16 @@ public class InserzionistaController {
 		model.addAttribute("utenteEmail", offerta.getUtente().getEmail());
 		model.addAttribute("utenteCellulare", offerta.getUtente().getCellulare());
 		return "astaAccettata";
+	}
+	
+	@GetMapping("/scriviRecensione")
+	public String scrivi(Recensione recensione) {
+		return "scriviRecensione";
+	}
+	
+	@PostMapping("/scriviRecensione")
+	public String postScrivi(@Valid Recensione recensione) {
+		return "scriviRecensione";
 	}
 
 }

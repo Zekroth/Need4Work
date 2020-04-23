@@ -9,17 +9,11 @@
 <h1>
 <p align="center">Lascia la tua recensione</p>
 </h1>
-<form class="form-horizontal" method="POST" th:action="@{/scriviRecensione}" th:object="${scriviRecensioneForm}">
-	<div class="form-group">
-		<label class="control-label col-sm-2" for="titolo">Titolo </label>
-			<div class="col-sm-8">	
-				<input class="form-control" type="text" th:field="*{titolo}">
-			</div>
-		</div>
+<form class="form-horizontal" method="POST" th:action="@{/scriviRecensione}" th:object="${recensione}">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="commento">Commento </label>
 			<div class="col-sm-8">	
-				<textarea class="form-control" rows="5" id="commento" th:field="*{commento} placeholder="Scrivi qui la tua recensione..." required></textarea>
+				<textarea class="form-control" rows="5" id="commento" th:field="*{commento}" placeholder="Scrivi qui la tua recensione..." required></textarea>
 			</div>
 	</div>
 	<div class="form-group">
