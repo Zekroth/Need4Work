@@ -72,6 +72,8 @@ public class InserzionistaController {
 		java.util.Date d=new java.util.Date();
 		Date date=new Date(d.getTime());
 		asta.setDataInizio(date);
+		if (asta.getDataInizio().compareTo(asta.getDataFine())>=0)
+			return "creazioneInserzione";
 		asta.setProprietarioAsta((Utente) session.getAttribute("loggedUser"));
 		asta.setProfessioneRichiesta(professioneRepository.findById(professione));
 		asta.setPrezzoChiusura(null);
@@ -120,17 +122,25 @@ public class InserzionistaController {
 	}
 	
 	@RequestMapping("/visualizza/{idAsta}")
-	public String visualizza(@PathVariable("idAsta") long idAsta, Model model) {
+	public String visualizza(@PathVariable("idAsta") long idAsta, Model model, HttpSession session) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		if(utente==null) {
+			return "redirect:/login";
+		}
 		Asta asta=astaRepository.findByidAsta(idAsta);
+		java.util.Date d=new java.util.Date();
+		Date oggi=new Date(d.getTime());
+		if(asta.getDataFine().compareTo(oggi)<0) {
+			return "redirect:/astaScaduta";
+		}
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
 		if (asta!=null) {
 			model.addAttribute("asta", asta);
 			model.addAttribute("offerte",offerte);
 			return "visualizzaInserzione";
-		} else {
-			return null;
 		}
+		return null;
 	}
 	
 	@GetMapping("/visualizza/accetta/{id}")
@@ -183,6 +193,14 @@ public class InserzionistaController {
 		model.addAttribute("utente",utente.get(0));
 		model.addAttribute("lavori",lavori);
 		return "accountProfiloProfessionista";
+	}
+	
+	@GetMapping("/astaScaduta")
+	public String astaScaduta(HttpSession session) {
+		Utente u=(Utente) session.getAttribute("loggedUser");
+		if (u==null)
+			return "redirect:/login";
+		return "astaScaduta";
 	}
 
 }
