@@ -171,6 +171,10 @@ public class ProfessionistaController {
 	@PostMapping("/faiOfferta/{idAsta}")
 	public String postFaiOfferta(@RequestParam("prezzo") double prezzo, @PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
 		Utente utente=(Utente)session.getAttribute("loggedUser");
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		if (prezzo>asta.getPrezzoPartenza()) {
+			return "redirect:/pro/inserzioneCercata/"+idAsta;
+		}
 		jdbcOfferta.pubblicaOfferta(utente.getEmail(), idAsta, prezzo);
 		model.addAttribute("msg", "Offerta andata a buon fine");
 		return "redirect:/pro/profile";
