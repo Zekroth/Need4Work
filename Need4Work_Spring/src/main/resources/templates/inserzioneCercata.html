@@ -8,6 +8,10 @@
 <h1><p th:text="${asta.titolo}"/></h1>
 	<p th:text="${asta.commento}"/>
 	<table>
+	<tr>
+		<td>Offerente</td>
+		<td>Prezzo offerto (euro)</td>
+	</tr>
 	   <th:block th:each="off : ${offerte}">
 		  <tr>
 		     <td th:text="${off.utente.getEmail()}"></td>
