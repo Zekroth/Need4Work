@@ -130,17 +130,22 @@ public class ProfessionistaController {
 	}
 	
 	@GetMapping("/inserzioneCercata/{idAsta}")
-	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model) {
+	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
 		if(asta!=null) {
-			if (asta.getVincitoreAsta()==null) {
-				model.addAttribute("offerte",offerte);
-				model.addAttribute("asta", asta);
-				return "inserzioneCercata";
+			if (asta.getProprietarioAsta().getEmail().equals(utente.getEmail())) {
+				return "redirect:/visualizza/"+asta.getIdAsta();
 			} else {
-				return "redirect:/pro/inserzioneFinita/"+asta.getIdAsta();
+				if (asta.getVincitoreAsta()==null) {
+					model.addAttribute("offerte",offerte);
+					model.addAttribute("asta", asta);
+					return "inserzioneCercata";
+				} else {
+					return "redirect:/pro/inserzioneFinita/"+asta.getIdAsta();
+				}
 			}
 		} else {
 			return null;
