@@ -9,6 +9,6 @@ import it.itsrizzoli.N4W.models.db.Lavoro;
 
 public interface LavoroDao extends CrudRepository<Lavoro, Long>{
 	
-	
+	Lavoro findById(long id);
 
 }

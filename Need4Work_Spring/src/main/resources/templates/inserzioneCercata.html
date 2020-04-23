@@ -8,6 +8,10 @@
 <h1><p th:text="${asta.titolo}"/></h1>
 	<p th:text="${asta.commento}"/>
 	<table>
+	<tr>
+		<td>Offerente</td>
+		<td>Prezzo offerto (euro)</td>
+	</tr>
 	   <th:block th:each="off : ${offerte}">
 		  <tr>
 		     <td th:text="${off.utente.getEmail()}"></td>
@@ -16,8 +20,8 @@
 	   </th:block>
 	</table> 
 	
-	<form method="post" th:action="@{'/pro/faiOfferta/' + ${asta.getIdAsta()}}" th:object="${offerta}">
-		<input type="number" name="prezzo" th:field="*{prezzo}">
+	<form method="post" th:action="@{'/pro/faiOfferta/' + ${asta.getIdAsta()}}">
+		<input type="number" name="prezzo">
 		<button type="submit">Fai offerta</button>
 	</form>
 	

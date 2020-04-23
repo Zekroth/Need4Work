@@ -17,7 +17,7 @@
 			     <td th:text="${offerta.utente.getEmail()}"></td>
 			     <td th:text="${offerta.prezzo}"></td>
 			     <td><a th:href="@{'profiloProfessionista/' + ${offerta.getUtente().getEmail()}}">Visualizza profilo professionista</a></td>
-			     <td><a th:href="@{'astaAccettata/' + ${offerta.getUtente().getEmail()}}">Accetta</a></td>
+			     <td><a th:href="@{'accetta/' + ${offerta.getId()}}">Accetta</a></td>
 			  </tr>
 		   </th:block>
 	</table> 

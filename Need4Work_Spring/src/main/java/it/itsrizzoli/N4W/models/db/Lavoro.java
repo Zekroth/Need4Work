@@ -25,10 +25,45 @@ public class Lavoro implements Serializable{
 	@OneToOne
 	private Asta asta;
 	
-	@NotNull
 	@JoinColumn(name="id_recensione")
 	@OneToOne
 	private Recensione recensione;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Asta getAsta() {
+		return asta;
+	}
+
+	public void setAsta(Asta asta) {
+		this.asta = asta;
+	}
+
+	public Recensione getRecensione() {
+		return recensione;
+	}
+
+	public void setRecensione(Recensione recensione) {
+		this.recensione = recensione;
+	}
+
+	public Lavoro(@NotNull Long id, @NotNull Asta asta, Recensione recensione) {
+		super();
+		this.id = id;
+		this.asta = asta;
+		this.recensione = recensione;
+	}
+
+	public Lavoro() {
+	}
+	
+	
 	
 	
 }

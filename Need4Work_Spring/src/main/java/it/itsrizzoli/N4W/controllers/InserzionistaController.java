@@ -3,6 +3,7 @@ package it.itsrizzoli.N4W.controllers;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -17,13 +18,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.itsrizzoli.N4W.dao.AstaDao;
+import it.itsrizzoli.N4W.dao.LavoroDao;
+import it.itsrizzoli.N4W.dao.LavoroJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
+import it.itsrizzoli.N4W.dao.RecensioneDao;
+import it.itsrizzoli.N4W.dao.RecensioneJdbcDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
+import it.itsrizzoli.N4W.models.db.Lavoro;
 import it.itsrizzoli.N4W.models.db.Offerta;
+import it.itsrizzoli.N4W.models.db.Recensione;
 import it.itsrizzoli.N4W.models.db.Utente;
 
 @Controller
@@ -35,6 +43,14 @@ public class InserzionistaController {
 	private UtenteDao userRepository;
 	@Autowired
 	private OffertaDao offertaRepository;
+	@Autowired
+	private LavoroDao lavoroRepository;
+	@Autowired
+	private RecensioneDao recensioneRepository;
+	@Autowired
+	private LavoroJdbcDao jdbcLavoro;
+	@Autowired
+	private RecensioneJdbcDao jdbcRecensione;
 	
 	@GetMapping("/creazioneInserzione")
 	public String creazioneInserzione(Asta asta) {
@@ -104,6 +120,42 @@ public class InserzionistaController {
 		} else {
 			return null;
 		}
+	}
+	
+	@GetMapping("/visualizza/accetta/{id}")
+	public String accetta(@PathVariable("id") long id, HttpSession session, Model model) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		if(utente==null) {
+			return "redirect:/login";
+		}
+		Offerta offerta=offertaRepository.findById(id);
+		Asta asta=offerta.getAsta();
+		asta.setVincitoreAsta(offerta.getUtente());
+		asta.setPrezzoChiusura(offerta.getPrezzo());
+		astaRepository.save(asta);
+		jdbcLavoro.accettaAsta(asta.getIdAsta());
+		model.addAttribute("asta",asta);
+		model.addAttribute("utenteEmail", offerta.getUtente().getEmail());
+		model.addAttribute("utenteCellulare", offerta.getUtente().getCellulare());
+		return "astaAccettata";
+	}
+	
+	@GetMapping("/scriviRecensione/{id}")
+	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model) {
+		Lavoro lavoro=(Lavoro) lavoroRepository.findById(id);
+		model.addAttribute("lavoro",lavoro);
+		return "scriviRecensione";
+	}
+	
+	@PostMapping("/scriviRecensione")
+	public String postScrivi(@Valid Recensione recensione, @RequestParam ("idLavoro") long idLavoro) {
+		//jdbcRecensione.pubblicaRecensione(recensione.getCommento(),recensione.getVoto());
+		recensioneRepository.save(recensione);
+		Lavoro lavoro=(Lavoro) lavoroRepository.findById(idLavoro);
+		lavoro.setRecensione(recensione);
+		lavoroRepository.save(lavoro);
+		//jdbcRecensione.associaRecensione(recensione.getId(), idLavoro);
+		return "redirect:/paginaUtenteInserzionista";
 	}
 
 }

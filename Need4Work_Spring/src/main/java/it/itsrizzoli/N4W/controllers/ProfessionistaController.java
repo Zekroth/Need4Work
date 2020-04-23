@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.itsrizzoli.N4W.dao.AstaDao;
+import it.itsrizzoli.N4W.dao.OffertJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.ProfessioneDao;
 import it.itsrizzoli.N4W.dao.ProfessionistaDao;
