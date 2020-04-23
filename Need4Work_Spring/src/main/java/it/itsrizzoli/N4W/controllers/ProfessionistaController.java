@@ -43,7 +43,7 @@ public class ProfessionistaController {
 	@Autowired
 	private AstaDao astaRepository;
 	@Autowired
-	private UtenteDao userRepository;
+	private OffertJdbcDao jdbcOfferta;
 	@Autowired
 	private OffertaDao offertaRepository;
 	
@@ -63,24 +63,40 @@ public class ProfessionistaController {
 		return "selezioneProfessione";
 	}
 	@GetMapping("/edit")
-	public String editProfessionistProfessions(HttpSession session, Model model) {
+	public String editProfessionistProfessions(HttpSession session, Model model, @RequestParam("email") String email) {
+		
+		if(email == null) {
+			return "";
+		}
 		
 		Iterable<Professione> professionIter = professionRepo.findAll();
 		List<Professione> professionList = new ArrayList<Professione>();
-		professionIter.forEach(professionList :: add);
-		
+		professionIter.forEach(x-> professionList.add(x));
+		List<Professione> userProfessions = new ArrayList<Professione>();
+
+		for (Professione professione : professionList) {
+			userProfessions.add(professione);
+		}
+		System.out.println(professionList.size());
 		model.addAttribute("professionList", professionList);
 		Utente u = (Utente) session.getAttribute("loggedUser");
 		
 		if(u == null) {
 			return "redirect:/hp";
 		}else {
-			professionList.removeIf(x -> !professionistRepo.findById(new ProfessionistaId(u, x)).isEmpty());
+			userProfessions.removeIf(x ->{
+				
+				boolean result = professionistRepo.findById(new ProfessionistaId(u, x)).isEmpty();
+				System.out.println(x.getTipologia() + " " + result);
+				return result;
+			});
 		}
-		model.addAttribute("userProfessions", professionList);
-		
-		return "";
+		model.addAttribute("userProfessions", userProfessions);
+
+		return "fragments/_FormEditProfessioniUtente";
 	}
+	
+	
 	@PostMapping("/edit")
 	public String editProfessionistProfessions(HttpSession session, Model model, @RequestParam("selected") List<String> selected) {
 		
@@ -129,30 +145,60 @@ public class ProfessionistaController {
 	}
 	
 	@GetMapping("/inserzioneCercata/{idAsta}")
-	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model, Offerta offerta) {
+	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
 		if(asta!=null) {
-			model.addAttribute("offerte",offerte);
-			model.addAttribute("asta", asta);
-			return "inserzioneCercata";
+			if (asta.getProprietarioAsta().getEmail().equals(utente.getEmail())) {
+				return "redirect:/visualizza/"+asta.getIdAsta();
+			} else {
+				if (asta.getVincitoreAsta()==null) {
+					model.addAttribute("offerte",offerte);
+					model.addAttribute("asta", asta);
+					return "inserzioneCercata";
+				} else {
+					return "redirect:/pro/inserzioneFinita/"+asta.getIdAsta();
+				}
+			}
 		} else {
 			return null;
 		}
 	}
 	
 	@PostMapping("/faiOfferta/{idAsta}")
-	public String postFaiOfferta(@Valid Offerta offerta, @PathVariable ("idAsta") long idAsta, BindingResult res, Model model, HttpSession session) {
-		if (res.hasErrors())
-			return "inserzioneCercata";
-		Asta asta=astaRepository.findByidAsta(idAsta);
+	public String postFaiOfferta(@RequestParam("prezzo") double prezzo, @PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
+		
+		/*Asta asta=astaRepository.findByidAsta(idAsta);
 		offerta.setAsta(asta);
 		offerta.setUtente((Utente) session.getAttribute("loggedUser"));
-		offertaRepository.save(offerta);
+		offertaRepository.save(offerta);*/
+		
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		jdbcOfferta.pubblicaOfferta(utente.getEmail(), idAsta, prezzo);
 		model.addAttribute("msg", "Offerta andata a buon fine");
-		return "redirect:/profile";
+		return "redirect:/pro/profile";
 		
 	}
+	
+	@GetMapping("/inserzioneFinita/{idAsta}")
+	public String inserzioneFinita(@PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		if(utente==null) {
+			return "redirect:/login";
+		}
+		String vittoria="";
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		if (asta.getVincitoreAsta().getEmail().equals(utente.getEmail())) {
+			vittoria="Complimenti hai vinto l'asta. A breve il proprietario ti contatterà";
+		} else {
+			vittoria="Che peccato! Non sei riuscito a vincere l'asta";
+		}
+		model.addAttribute("asta", asta);
+		model.addAttribute("vittoria", vittoria);
+		return "inserzioneAstaFinita";
+	}
+	
 	
 }
