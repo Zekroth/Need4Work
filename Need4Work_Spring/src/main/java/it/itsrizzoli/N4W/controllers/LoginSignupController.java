@@ -1,5 +1,6 @@
 package it.itsrizzoli.N4W.controllers;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -38,7 +39,11 @@ public class LoginSignupController {
 	public String postSignUpInserzionista(@Valid Utente utente, BindingResult res, Model model, HttpSession session) {
 		if (res.hasErrors())
 			return "signUpInserzionista";
-		
+		java.util.Date d=new java.util.Date();
+		Date oggi=new Date(d.getTime());
+		if (utente.getDataNascita().compareTo(oggi)>=0) {
+			return "signUpInserzionista";
+		}
 		userRepository.save(utente);
 		session.setAttribute("loggedUser", utente);
 
