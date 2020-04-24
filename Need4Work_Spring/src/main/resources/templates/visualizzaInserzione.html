@@ -11,12 +11,20 @@
 		<h1>
 			<p th:text="${asta.titolo}" />
 		</h1>
+		<h3>
+			<label for="scadenza">Scadenza:</label>
+			<p id="scadenza" th:text="${asta.dataFine}"></p>
+		</h3>
 		<p th:text="${asta.commento}" />
 		<table class="table mt-2 text-center">
 			<thead class="thead-light">
+				<tr class="thead-dark" >
+					<th scope="col" colspan="2" class=" font-weight-bold">Offerte</th>
+				</tr>
 				<tr>
-				<th>Utente</td>
-				<th>Offerta</td>
+					<th scope="col">Utente</th>
+					<th scope="col">Offerta</th>
+				</tr>
 			</tr>
 			</thead>
 			
