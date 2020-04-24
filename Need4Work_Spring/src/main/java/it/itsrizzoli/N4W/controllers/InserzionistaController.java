@@ -1,6 +1,7 @@
 package it.itsrizzoli.N4W.controllers;
 
 import java.sql.Date;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -28,6 +29,7 @@ import it.itsrizzoli.N4W.dao.RecensioneDao;
 import it.itsrizzoli.N4W.dao.RecensioniJdbcDao;
 import it.itsrizzoli.N4W.dao.UserJdbcDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
+import it.itsrizzoli.N4W.models.configs.OffertePrezzoComparator;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Lavoro;
 import it.itsrizzoli.N4W.models.db.Offerta;
@@ -137,7 +139,7 @@ public class InserzionistaController {
 			return "redirect:/astaScaduta";
 		}
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
-		//da ordinare la lista offerte
+		Collections.sort(offerte, new OffertePrezzoComparator());
 		if (asta!=null) {
 			model.addAttribute("asta", asta);
 			model.addAttribute("offerte",offerte);
