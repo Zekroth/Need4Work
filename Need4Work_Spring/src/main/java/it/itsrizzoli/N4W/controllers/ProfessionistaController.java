@@ -127,7 +127,7 @@ public class ProfessionistaController {
 				
 
 				Professionista prof = new Professionista(new ProfessionistaId(u,x));
-				if(professionistRepo.findById(prof.getId()).isEmpty()) {
+				if(professionistRepo.findById(prof.getId()).isPresent()) {
 					professionistRepo.delete(prof);
 				}
 			});
@@ -136,7 +136,7 @@ public class ProfessionistaController {
 			System.out.println("Someone tried to inject a wrong id");
 			return "error";
 		}
-		return "redirect:/hp";
+		return "redirect:/dp?email="+u.getEmail();
 	}
 	
 	@PostMapping(value = "/add")

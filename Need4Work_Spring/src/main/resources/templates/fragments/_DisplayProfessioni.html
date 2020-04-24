@@ -1,29 +1,30 @@
 <html>
-	<head>
-		<th:block th:include="fragments/_layout.html :: head" />
-	</head>
-	<body>
-		<div id="rootDispProfessioni" th:if="${session.loggedUser != null}">
-			<table class="table table-striped">
-				<th:block th:each="professione: ${Professioni}">
-					<thead class="thead-dark">
-						<tr>
-							<th scope="col">ID</th>
-							<th scope="col">Tipologia</th>
-						</tr>
-					</thead>
-					<tbody >
-						<tr>
-							<td th:text="${professione.id}"></td>
-							<td th:text="${professione.tipologia}"></td>
-						</tr>
-					</tbody>
-				</th:block>
-			</table>
-			<th:block th:if="${session.loggedUser.email.equals(#request.getParameter('email'))}">
-				<a th:href="@{~/pro/edit(email=${session.loggedUser.email})}"><button class="btn btn-outline-dark" target="edit_tab" onclick="document.getElementById('edit_tab').style.display = 'inline';">Edit</button></a>
-				<iframe id="edit_tab" style="display:none"></iframe>
-			</th:block>
-		</div>
-	</body>
+<head>
+<th:block th:include="fragments/_layout.html :: head" />
+</head>
+<body>
+	<div id="rootDispProfessioni" th:if="${session.loggedUser != null}">
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Tipologia</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="professione: ${Professioni}">
+					<td th:text="${professione.id}"></td>
+					<td th:text="${professione.tipologia}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<th:block
+			th:if="${session.loggedUser.email.equals(#request.getParameter('email'))}">
+			<a th:href="@{~/pro/edit(email=${session.loggedUser.email})}"><button
+					class="btn btn-outline-dark" target="edit_tab"
+					onclick="document.getElementById('edit_tab').style.display = 'inline';">Edit</button></a>
+			<iframe id="edit_tab" style="display: none"></iframe>
+		</th:block>
+	</div>
+</body>
 </html>
