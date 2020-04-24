@@ -1,23 +1,20 @@
 package it.itsrizzoli.N4W.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.itsrizzoli.N4W.dao.AstaDao;
@@ -25,7 +22,6 @@ import it.itsrizzoli.N4W.dao.OffertJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.ProfessioneDao;
 import it.itsrizzoli.N4W.dao.ProfessionistaDao;
-import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Offerta;
 import it.itsrizzoli.N4W.models.db.Professione;
@@ -109,19 +105,34 @@ public class ProfessionistaController {
 		List<Professione> professionList = new ArrayList<Professione>();
 		professionIter.forEach(professionList :: add);
 		
-		
-		selected.forEach(x-> {
-			Long l = Long.parseLong(x);
-			
-			professionistRepo.save(new Professionista(u, professionRepo.findById(l).get()));
-			professionList.removeIf(y -> y.getId() == l);
-			
-		});
-		
-		professionList.forEach(x->{
-			professionistRepo.delete(new Professionista(u, x));
+		try {
+			selected.forEach(x-> {
+				Long l = Long.parseLong(x);
+				
+				Professione pro = professionRepo.findById(l).get();
+				Professionista prof = new Professionista(new ProfessionistaId(u,pro));
+				if(professionistRepo.findById(prof.getId()).isPresent()){
+					
+					professionList.removeIf(y-> y.getId()  == l);
+				}else {
+					//TRY SAVE
+					System.out.println(x);
+					professionistRepo.save(prof);
+				}
 			});
-		
+			professionList.forEach(x->{
+				
+
+				Professionista prof = new Professionista(new ProfessionistaId(u,x));
+				if(professionistRepo.findById(prof.getId()).isEmpty()) {
+					professionistRepo.delete(prof);
+				}
+			});
+		}catch(NoSuchElementException e ) {
+			
+			System.out.println("Someone tried to inject a wrong id");
+			return "error";
+		}
 		return "redirect:/hp";
 	}
 	
@@ -142,12 +153,30 @@ public class ProfessionistaController {
 	
 	@GetMapping(value = "/profile")
 	public String viewProfile(Model model, HttpSession session) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		List<Offerta> listOfferte=offertaRepository.findByUtente(utente);
+		List<Offerta> offerte=new ArrayList<>();
+		boolean flag=true;
+		offerte.add(listOfferte.get(0));
+		for (Offerta o:listOfferte) {
+			flag=true;
+			for (int i=0; i<offerte.size(); i++)
+				if(o.getAsta().getIdAsta()==offerte.get(i).getAsta().getIdAsta())
+					flag=false;
+			if (flag==true) {
+				offerte.add(o);
+			}
+		}
+		model.addAttribute("utente",utente);
+		model.addAttribute("offerte",offerte);
 		return "profiloProfessionista";
 	}
 	
 	@GetMapping("/inserzioneCercata/{idAsta}")
 	public String inserzioneCercata(@PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
 		Utente utente=(Utente)session.getAttribute("loggedUser");
+		if(utente==null)
+			return "redirect:/login";
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
@@ -170,13 +199,11 @@ public class ProfessionistaController {
 	
 	@PostMapping("/faiOfferta/{idAsta}")
 	public String postFaiOfferta(@RequestParam("prezzo") double prezzo, @PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
-		
-		/*Asta asta=astaRepository.findByidAsta(idAsta);
-		offerta.setAsta(asta);
-		offerta.setUtente((Utente) session.getAttribute("loggedUser"));
-		offertaRepository.save(offerta);*/
-		
 		Utente utente=(Utente)session.getAttribute("loggedUser");
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		if (prezzo>asta.getPrezzoPartenza()) {
+			return "redirect:/pro/inserzioneCercata/"+idAsta;
+		}
 		jdbcOfferta.pubblicaOfferta(utente.getEmail(), idAsta, prezzo);
 		model.addAttribute("msg", "Offerta andata a buon fine");
 		return "redirect:/pro/profile";

@@ -4,10 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
 
 import it.itsrizzoli.N4W.models.db.id.ProfessionistaId;
 
@@ -32,7 +28,12 @@ public class Professionista implements Serializable{
 	public void setProfessione(Professione professione) {
 		this.professionistaId.setProfessione(professione);
 	}
-
+	public ProfessionistaId getId() {
+		return this.professionistaId;
+	}
+	public void setId(ProfessionistaId proId) {
+		this.professionistaId = proId;
+	}
 	/**
 	 * @param professionistaId
 	 */
