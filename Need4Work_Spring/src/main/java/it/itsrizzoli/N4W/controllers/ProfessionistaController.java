@@ -1,6 +1,8 @@
 package it.itsrizzoli.N4W.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -136,8 +138,19 @@ public class ProfessionistaController {
 	@GetMapping(value = "/profile")
 	public String viewProfile(Model model, HttpSession session) {
 		Utente utente=(Utente)session.getAttribute("loggedUser");
-		//List<Asta> aste=astaRepository.findByProprietarioAsta(utente);
-		List<Offerta> offerte=offertaRepository.findByUtente(utente);
+		List<Offerta> listOfferte=offertaRepository.findByUtente(utente);
+		List<Offerta> offerte=new ArrayList<>();
+		boolean flag=true;
+		offerte.add(listOfferte.get(0));
+		for (Offerta o:listOfferte) {
+			flag=true;
+			for (int i=0; i<offerte.size(); i++)
+				if(o.getAsta().getIdAsta()==offerte.get(i).getAsta().getIdAsta())
+					flag=false;
+			if (flag==true) {
+				offerte.add(o);
+			}
+		}
 		model.addAttribute("utente",utente);
 		model.addAttribute("offerte",offerte);
 		return "profiloProfessionista";
