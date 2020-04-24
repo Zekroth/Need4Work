@@ -2,10 +2,8 @@ package it.itsrizzoli.N4W.dao;
 
 import java.util.List;
 
-import org.hibernate.annotations.NamedQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import it.itsrizzoli.N4W.models.db.Professione;
 
