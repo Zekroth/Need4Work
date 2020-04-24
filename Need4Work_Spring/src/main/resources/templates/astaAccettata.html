@@ -8,10 +8,11 @@
 <body>
 <p th:text="${asta.titolo}"/>
 <p th:text="${asta.commento}"/>
+Prezzo accettato: <p th:text="${asta.prezzoChiusura}"/>
 Questi sono i recapiti del vincitore! Che aspetti a contattarlo?
 <p th:text="'Email: '+${utenteEmail}"/>
 <p th:text="'Cellulare: '+${utenteCellulare}"/>
-<a th:href="@{'scriviRecensione/' + ${idLavoro}}">Lascia una recensione!</a>
+<a th th:href="@{'~/scriviRecensione/' + ${idLavoro}}">Lascia una recensione!</a>
 </br>
 </body>
 </html>

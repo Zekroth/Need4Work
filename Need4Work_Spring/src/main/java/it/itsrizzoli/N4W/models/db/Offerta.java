@@ -1,6 +1,7 @@
 package it.itsrizzoli.N4W.models.db;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -99,5 +100,5 @@ public class Offerta implements Serializable{
 		this.asta = asta;
 		this.prezzo = prezzo;
 	}
-	
+
 }

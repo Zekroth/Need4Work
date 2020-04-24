@@ -39,7 +39,7 @@ public class Utente {
 	@Email
 	String email; //chiave primaria
 	
-	@Size(min = 9, max = 10)
+	@Size(max = 10)
 	String cellulare;
 	
 	@NotNull
@@ -61,7 +61,7 @@ public class Utente {
 	public Utente(@NotNull @Size(min = 3, max = 100) String nome, @NotNull @Size(min = 3, max = 100) String cognome,
 			@NotNull Date dataNascita, @NotNull @Size(min = 3, max = 300) String via,
 			@NotNull @Size(min = 3, max = 100) String paese, @NotNull @Size(min = 2, max = 2) String provincia,
-			@Size(min = 3, max = 300) @Email String email, @Size(min = 9, max = 10) String cellulare,
+			@Size(min = 3, max = 300) @Email String email, @Size(max = 10) String cellulare,
 			@NotNull @Size(min = 8, max = 20) String password, @NotNull int cap) {
 		this.nome = nome;
 		this.cognome = cognome;

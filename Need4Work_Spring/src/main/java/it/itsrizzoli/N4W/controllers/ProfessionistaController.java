@@ -1,6 +1,7 @@
 package it.itsrizzoli.N4W.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ import it.itsrizzoli.N4W.dao.OffertJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.ProfessioneDao;
 import it.itsrizzoli.N4W.dao.ProfessionistaDao;
+import it.itsrizzoli.N4W.models.configs.OffertePrezzoComparator;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Offerta;
 import it.itsrizzoli.N4W.models.db.Professione;
@@ -157,15 +159,17 @@ public class ProfessionistaController {
 		Utente utente=(Utente)session.getAttribute("loggedUser");
 		List<Offerta> listOfferte=offertaRepository.findByUtente(utente);
 		List<Offerta> offerte=new ArrayList<>();
-		boolean flag=true;
-		offerte.add(listOfferte.get(0));
-		for (Offerta o:listOfferte) {
-			flag=true;
-			for (int i=0; i<offerte.size(); i++)
-				if(o.getAsta().getIdAsta()==offerte.get(i).getAsta().getIdAsta())
-					flag=false;
-			if (flag==true) {
-				offerte.add(o);
+		if (listOfferte.size()!=0) {
+			boolean flag=true;
+			offerte.add(listOfferte.get(0));
+			for (Offerta o:listOfferte) {
+				flag=true;
+				for (int i=0; i<offerte.size(); i++)
+					if(o.getAsta().getIdAsta()==offerte.get(i).getAsta().getIdAsta())
+						flag=false;
+				if (flag==true) {
+					offerte.add(o);
+				}
 			}
 		}
 		model.addAttribute("utente",utente);
@@ -180,7 +184,7 @@ public class ProfessionistaController {
 			return "redirect:/login";
 		Asta asta=astaRepository.findByidAsta(idAsta);
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
-		//da ordinare la lista offerte
+		Collections.sort(offerte, new OffertePrezzoComparator());
 		if(asta!=null) {
 			if (asta.getProprietarioAsta().getEmail().equals(utente.getEmail())) {
 				return "redirect:/visualizza/"+asta.getIdAsta();
