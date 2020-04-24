@@ -140,15 +140,17 @@ public class ProfessionistaController {
 		Utente utente=(Utente)session.getAttribute("loggedUser");
 		List<Offerta> listOfferte=offertaRepository.findByUtente(utente);
 		List<Offerta> offerte=new ArrayList<>();
-		boolean flag=true;
-		offerte.add(listOfferte.get(0));
-		for (Offerta o:listOfferte) {
-			flag=true;
-			for (int i=0; i<offerte.size(); i++)
-				if(o.getAsta().getIdAsta()==offerte.get(i).getAsta().getIdAsta())
-					flag=false;
-			if (flag==true) {
-				offerte.add(o);
+		if (listOfferte.size()!=0) {
+			boolean flag=true;
+			offerte.add(listOfferte.get(0));
+			for (Offerta o:listOfferte) {
+				flag=true;
+				for (int i=0; i<offerte.size(); i++)
+					if(o.getAsta().getIdAsta()==offerte.get(i).getAsta().getIdAsta())
+						flag=false;
+				if (flag==true) {
+					offerte.add(o);
+				}
 			}
 		}
 		model.addAttribute("utente",utente);
