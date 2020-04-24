@@ -28,7 +28,12 @@ public class Professionista implements Serializable{
 	public void setProfessione(Professione professione) {
 		this.professionistaId.setProfessione(professione);
 	}
-
+	public ProfessionistaId getId() {
+		return this.professionistaId;
+	}
+	public void setId(ProfessionistaId proId) {
+		this.professionistaId = proId;
+	}
 	/**
 	 * @param professionistaId
 	 */

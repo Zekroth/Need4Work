@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import java.util.NoSuchElementException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,19 +106,34 @@ public class ProfessionistaController {
 		List<Professione> professionList = new ArrayList<Professione>();
 		professionIter.forEach(professionList :: add);
 		
-		
-		selected.forEach(x-> {
-			Long l = Long.parseLong(x);
-			
-			professionistRepo.save(new Professionista(u, professionRepo.findById(l).get()));
-			professionList.removeIf(y -> y.getId() == l);
-			
-		});
-		
-		professionList.forEach(x->{
-			professionistRepo.delete(new Professionista(u, x));
+		try {
+			selected.forEach(x-> {
+				Long l = Long.parseLong(x);
+				
+				Professione pro = professionRepo.findById(l).get();
+				Professionista prof = new Professionista(new ProfessionistaId(u,pro));
+				if(professionistRepo.findById(prof.getId()).isPresent()){
+					
+					professionList.removeIf(y-> y.getId()  == l);
+				}else {
+					//TRY SAVE
+					System.out.println(x);
+					professionistRepo.save(prof);
+				}
 			});
-		
+			professionList.forEach(x->{
+				
+
+				Professionista prof = new Professionista(new ProfessionistaId(u,x));
+				if(professionistRepo.findById(prof.getId()).isEmpty()) {
+					professionistRepo.delete(prof);
+				}
+			});
+		}catch(NoSuchElementException e ) {
+			
+			System.out.println("Someone tried to inject a wrong id");
+			return "error";
+		}
 		return "redirect:/hp";
 	}
 	
