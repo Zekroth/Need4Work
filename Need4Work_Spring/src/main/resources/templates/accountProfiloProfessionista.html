@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<div th:replace="fragments/_layout.html :: head">thymeleaf layout loading failed</div>
+<title>Profilo utente</title>
+</head>
+<body>
+<header th:replace="fragments/_layout.html :: navbar">thymeleaf layout loading failed</header>
+	<h1>
+		<p th:text="${utente.getNome()}" />
+		<p th:text="${utente.getCognome()}" />
+	</h1>
+	<table>
+			<tr>
+				<td>Commento</td>
+				<td>Voto</td>
+			</tr>
+			<th:block th:each="lavoro:${lavori}">
+				<tr>
+					<td th:text="${lavoro.commento}"></td>
+					<td th:text="${lavoro.voto}"></td>
+				</tr>
+			</th:block>
+		</table>
+</body>
+</html>

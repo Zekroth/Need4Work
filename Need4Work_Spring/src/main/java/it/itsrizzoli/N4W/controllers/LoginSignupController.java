@@ -20,8 +20,6 @@ import it.itsrizzoli.N4W.dao.UserJdbcDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Utente;
 import it.itsrizzoli.N4W.models.view.LoginForm;
-import it.itsrizzoli.N4W.models.view.SignUpInserzionistaForm;
-import it.itsrizzoli.N4W.models.view.SignUpProfessionistaForm;
 
 @Controller
 @EnableWebMvc

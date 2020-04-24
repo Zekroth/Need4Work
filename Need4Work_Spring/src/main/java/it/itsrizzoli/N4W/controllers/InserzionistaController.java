@@ -1,9 +1,7 @@
 package it.itsrizzoli.N4W.controllers;
 
 import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -25,8 +23,10 @@ import it.itsrizzoli.N4W.dao.AstaDao;
 import it.itsrizzoli.N4W.dao.LavoroDao;
 import it.itsrizzoli.N4W.dao.LavoroJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
+import it.itsrizzoli.N4W.dao.ProfessioneDao;
 import it.itsrizzoli.N4W.dao.RecensioneDao;
-import it.itsrizzoli.N4W.dao.RecensioneJdbcDao;
+import it.itsrizzoli.N4W.dao.RecensioniJdbcDao;
+import it.itsrizzoli.N4W.dao.UserJdbcDao;
 import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Lavoro;
@@ -48,21 +48,34 @@ public class InserzionistaController {
 	@Autowired
 	private RecensioneDao recensioneRepository;
 	@Autowired
+	private ProfessioneDao professioneRepository;
+	@Autowired
 	private LavoroJdbcDao jdbcLavoro;
 	@Autowired
-	private RecensioneJdbcDao jdbcRecensione;
+	private RecensioniJdbcDao jdbcRecensioni;
+	@Autowired
+	private UserJdbcDao jdbcUser;
 	
 	@GetMapping("/creazioneInserzione")
-	public String creazioneInserzione(Asta asta) {
+	public String creazioneInserzione(Asta asta, HttpSession session) {
+		Utente u=(Utente) session.getAttribute("loggedUser");
+		if (u==null)
+			return "redirect:/login";
 		return "creazioneInserzione";
 	}
 	
 	@PostMapping("/creazioneInserzione")
-	public String postCreazioneInserzione(@Valid Asta asta, BindingResult res, Model model, HttpSession session) {
+	public String postCreazioneInserzione(@Valid Asta asta, @RequestParam ("professione") long professione, BindingResult res, Model model, HttpSession session) {
 		if (res.hasErrors())
 			return "creazioneInserzione";
 		
+		java.util.Date d=new java.util.Date();
+		Date date=new Date(d.getTime());
+		asta.setDataInizio(date);
+		if (asta.getDataInizio().compareTo(asta.getDataFine())>=0)
+			return "creazioneInserzione";
 		asta.setProprietarioAsta((Utente) session.getAttribute("loggedUser"));
+		asta.setProfessioneRichiesta(professioneRepository.findById(professione));
 		asta.setPrezzoChiusura(null);
 		asta.setVincitoreAsta(null);
 		astaRepository.save(asta);
@@ -109,17 +122,28 @@ public class InserzionistaController {
 	}
 	
 	@RequestMapping("/visualizza/{idAsta}")
-	public String visualizza(@PathVariable("idAsta") long idAsta, Model model) {
+	public String visualizza(@PathVariable("idAsta") long idAsta, Model model, HttpSession session) {
+		Utente utente=(Utente)session.getAttribute("loggedUser");
+		if(utente==null) {
+			return "redirect:/login";
+		}
 		Asta asta=astaRepository.findByidAsta(idAsta);
+		java.util.Date d=new java.util.Date();
+		Date oggi=new Date(d.getTime());
+		if(asta.getVincitoreAsta()!=null) {
+			return "redirect:/visualizzaLavoro/"+idAsta;
+		}
+		if(asta.getDataFine().compareTo(oggi)<0) {
+			return "redirect:/astaScaduta";
+		}
 		List<Offerta> offerte=offertaRepository.findByAsta(asta);
 		//da ordinare la lista offerte
 		if (asta!=null) {
 			model.addAttribute("asta", asta);
 			model.addAttribute("offerte",offerte);
 			return "visualizzaInserzione";
-		} else {
-			return null;
 		}
+		return null;
 	}
 	
 	@GetMapping("/visualizza/accetta/{id}")
@@ -134,28 +158,68 @@ public class InserzionistaController {
 		asta.setPrezzoChiusura(offerta.getPrezzo());
 		astaRepository.save(asta);
 		jdbcLavoro.accettaAsta(asta.getIdAsta());
+		List<Lavoro> lavoro=lavoroRepository.findByAsta(asta);
 		model.addAttribute("asta",asta);
 		model.addAttribute("utenteEmail", offerta.getUtente().getEmail());
 		model.addAttribute("utenteCellulare", offerta.getUtente().getCellulare());
+		model.addAttribute("idLavoro", lavoro.get(0).getId());
 		return "astaAccettata";
 	}
 	
-	@GetMapping("/scriviRecensione/{id}")
-	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model) {
-		Lavoro lavoro=(Lavoro) lavoroRepository.findById(id);
-		model.addAttribute("lavoro",lavoro);
-		return "scriviRecensione";
+	@GetMapping("/visualizzaLavoro/scriviRecensione/{id}")
+	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model, HttpSession session) {
+		Utente utente=(Utente) session.getAttribute("loggedUser");
+		if (utente!=null) {
+			Lavoro lavoro=(Lavoro) lavoroRepository.findById(id);
+			model.addAttribute("lavoro",lavoro);
+			return "scriviRecensione";
+		} else {
+			return "redirect:/login";
+		}
 	}
 	
 	@PostMapping("/scriviRecensione")
 	public String postScrivi(@Valid Recensione recensione, @RequestParam ("idLavoro") long idLavoro) {
-		//jdbcRecensione.pubblicaRecensione(recensione.getCommento(),recensione.getVoto());
 		recensioneRepository.save(recensione);
 		Lavoro lavoro=(Lavoro) lavoroRepository.findById(idLavoro);
 		lavoro.setRecensione(recensione);
 		lavoroRepository.save(lavoro);
-		//jdbcRecensione.associaRecensione(recensione.getId(), idLavoro);
 		return "redirect:/paginaUtenteInserzionista";
+	}
+	
+	@GetMapping("/visualizza/visualizzaUtente/{email}")
+	public String visualizzaUtente(@PathVariable ("email") String email, Model model, HttpSession session) {
+		Utente u=(Utente) session.getAttribute("loggedUser");
+		if (u==null)
+			return "redirect:/login";
+		email=email+"%";
+		List<Utente> utente=jdbcUser.findUser(email);
+		List<Recensione> lavori=jdbcRecensioni.getAllRecensioni(utente.get(0).getEmail());
+		model.addAttribute("utente",utente.get(0));
+		model.addAttribute("lavori",lavori);
+		return "accountProfiloProfessionista";
+	}
+	
+	@GetMapping("/astaScaduta")
+	public String astaScaduta(HttpSession session) {
+		Utente u=(Utente) session.getAttribute("loggedUser");
+		if (u==null)
+			return "redirect:/login";
+		return "astaScaduta";
+	}
+	
+	@GetMapping("/visualizzaLavoro/{idAsta}")
+	public String visualizzaUtente(@PathVariable ("idAsta") long idAsta, Model model, HttpSession session) {
+		Utente u=(Utente) session.getAttribute("loggedUser");
+		if (u==null)
+			return "redirect:/login";
+		Asta asta=astaRepository.findByidAsta(idAsta);
+		List<Lavoro> lavoro=lavoroRepository.findByAsta(asta);
+		model.addAttribute("asta",asta);
+		model.addAttribute("utenteEmail", asta.getVincitoreAsta().getEmail());
+		model.addAttribute("utenteCellulare",  asta.getVincitoreAsta().getCellulare());
+		model.addAttribute("idLavoro", lavoro.get(0).getId());
+		return "astaAccettata";
 	}
 
 }
