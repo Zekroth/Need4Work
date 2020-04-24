@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-<<<<<<< HEAD
+
 import java.util.NoSuchElementException;
-=======
->>>>>>> branch 'master' of https://github.com/Zekroth/Need4Work.git
 
 import javax.servlet.http.HttpSession;
 
