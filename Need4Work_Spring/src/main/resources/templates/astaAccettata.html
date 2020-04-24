@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<th:block th:include="fragments/_layout.html :: head"></th:block>
 <meta charset="UTF-8">
 <title>Asta accettata</title>
 </head>
 <body>
-<p th:text="${asta.titolo}"/>
-<p th:text="${asta.commento}"/>
-Prezzo accettato: <p th:text="${asta.prezzoChiusura}"/>
-Questi sono i recapiti del vincitore! Che aspetti a contattarlo?
-<p th:text="'Email: '+${utenteEmail}"/>
-<p th:text="'Cellulare: '+${utenteCellulare}"/>
-<a th th:href="@{'~/scriviRecensione/' + ${idLavoro}}">Lascia una recensione!</a>
-</br>
+	<th:block th:include="fragments/_layout.html :: navbar"></th:block>
+	<div id="container" class="container mt-5">
+		<h1 th:text="${asta.titolo}"></h1>
+		<br />
+		<h3 th:text="${asta.commento}"></h3>
+		<br />
+		<h2 for="prezzo">Prezzo accettato:</h2>
+		<h3 id="prezzo" th:text="${asta.prezzoChiusura}"></h3>
+		<br />
+		<h2 for="contatti">Questi sono i recapiti del vincitore! Che
+			aspetti a contattarlo?</h2>
+		<h4 id="contatti" th:text="'Email: '+${utenteEmail}" />
+		<h4 th:text="'Cellulare: '+${utenteCellulare}" />
+		<br /> <a th:href="@{'~/scriviRecensione/' + ${idLavoro}}"><button
+				class="btn btn-primary">Lascia una recensione!</button></a> </br>
+	</div>
+
 </body>
 </html>

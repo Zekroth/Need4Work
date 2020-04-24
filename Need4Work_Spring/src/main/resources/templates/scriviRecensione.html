@@ -1,50 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<th:block th:include="fragments/_layout.html :: head"></th:block>
 <meta charset="UTF-8">
 <title>Scrivi recensione</title>
 </head>
 <body>
-<h1>
-<p align="center">Lascia la tua recensione</p>
-</h1>
-<form class="form-horizontal" method="POST" th:action="@{/scriviRecensione}" th:object="${recensione}">
-	<input type="hidden" name="idLavoro" th:value="${lavoro.getId()}">
+	<th:block th:include="fragments/_layout.html :: navbar"></th:block>
+	<div id="container" class="container mt-5">
+		<h1>
+			<p align="center">Lascia la tua recensione</p>
+		</h1>
+
+		<form class="form-horizontal" method="POST"
+			th:action="@{/scriviRecensione}" th:object="${recensione}">
+			<input type="hidden" name="idLavoro" th:value="${lavoro.getId()}">
 			<div class="form-group">
 				<label class="control-label col-sm-2">Commento </label>
-				<div class="col-sm-8">	
-					<textarea class="form-control" rows="5" id="commento" th:field="*{commento}" placeholder="Scrivi qui la tua recensione..." required></textarea>
+				<div class="col-sm-8">
+					<textarea class="form-control" rows="5" id="commento"
+						th:field="*{commento}"
+						placeholder="Scrivi qui la tua recensione..." required></textarea>
 				</div>
 			</div>
-	<div class="form-group">
-		<label class="control-label col-sm-2">Valutazione </label>
-		<div class="radio-inline">
-		<input type="radio" id="valutazione" name="valutazione" th:field="*{voto}" value="1" required>
-		<label for="valutazione">1</label>
-		</div>
-		<div class="radio-inline">
-		<input type="radio" id="valutazione" name="valutazione" th:field="*{voto}" value="2" required>
-		<label for="valutazione">2</label>
-		</div>
-		<div class="radio-inline">
-		<input type="radio" id="valutazione" name="valutazione" th:field="*{voto}" value="3" required>
-		<label for="valutazione">3</label>
-		</div>
-		<div class="radio-inline">
-		<input type="radio" id="valutazione" name="valutazione" th:field="*{voto}" value="4" required>
-		<label for="valutazione">4</label>
-		</div>
-		<div class="radio-inline">
-		<input type="radio" id="valutazione" name="valutazione" th:field="*{voto}" value="5" required>
-		<label for="valutazione">5</label></br>
-		</div>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2">Valutazione </label>
+				<div class="radio-inline">
+					<input type="radio" id="valutazione" name="valutazione"
+						th:field="*{voto}" value="1" required> <label
+						for="valutazione">1</label>
+				</div>
+				<div class="radio-inline">
+					<input type="radio" id="valutazione" name="valutazione"
+						th:field="*{voto}" value="2" required> <label
+						for="valutazione">2</label>
+				</div>
+				<div class="radio-inline">
+					<input type="radio" id="valutazione" name="valutazione"
+						th:field="*{voto}" value="3" required> <label
+						for="valutazione">3</label>
+				</div>
+				<div class="radio-inline">
+					<input type="radio" id="valutazione" name="valutazione"
+						th:field="*{voto}" value="4" required> <label
+						for="valutazione">4</label>
+				</div>
+				<div class="radio-inline">
+					<input type="radio" id="valutazione" name="valutazione"
+						th:field="*{voto}" value="5" required> <label
+						for="valutazione">5</label></br>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Invia
+						recensione</button>
+				</div>
+			</div>
+		</form>
 	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">Invia recensione</button>
-		</div>
-	</div>
-</form>
 </body>
 </html>

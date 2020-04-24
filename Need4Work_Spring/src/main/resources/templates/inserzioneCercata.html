@@ -13,7 +13,9 @@
 		<p th:text="${asta.titolo}" />
 	</h1>
 	<p th:text="${asta.commento}" />
-	<table class="table mt-5 text-center">
+	<h3>Scadenza:</h3>
+	<h3 th:text="${asta.dataFine}"></h3>
+		<table class="table mt-5 text-center">
 		<thead class="table-light">
 			<tr>
 				<td>Offerente</td>

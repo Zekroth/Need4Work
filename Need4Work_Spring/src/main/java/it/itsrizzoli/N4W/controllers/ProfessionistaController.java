@@ -25,6 +25,7 @@ import it.itsrizzoli.N4W.dao.OffertJdbcDao;
 import it.itsrizzoli.N4W.dao.OffertaDao;
 import it.itsrizzoli.N4W.dao.ProfessioneDao;
 import it.itsrizzoli.N4W.dao.ProfessionistaDao;
+import it.itsrizzoli.N4W.dao.UtenteDao;
 import it.itsrizzoli.N4W.models.configs.OffertePrezzoComparator;
 import it.itsrizzoli.N4W.models.db.Asta;
 import it.itsrizzoli.N4W.models.db.Offerta;
@@ -47,6 +48,8 @@ public class ProfessionistaController {
 	private OffertJdbcDao jdbcOfferta;
 	@Autowired
 	private OffertaDao offertaRepository;
+	@Autowired
+	private UtenteDao utenteRepository;
 	
 	@GetMapping("/add")
 	public String addProfessionist(HttpSession session, Model model) {
@@ -157,6 +160,8 @@ public class ProfessionistaController {
 	@GetMapping(value = "/profile")
 	public String viewProfile(Model model, HttpSession session) {
 		Utente utente=(Utente)session.getAttribute("loggedUser");
+		
+		
 		List<Offerta> listOfferte=offertaRepository.findByUtente(utente);
 		List<Offerta> offerte=new ArrayList<>();
 		if (listOfferte.size()!=0) {
