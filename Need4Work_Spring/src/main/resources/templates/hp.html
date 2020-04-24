@@ -16,7 +16,8 @@
 		<h3><a th:href="@{~/login}">Login</a> to start using the platform</h3>
 	</div>
 	<div id="navigate" class="jumbotron" th:if="${session.loggedUser != null}">
-		<table>
+		<table class="table mt-2 text-center">
+			<thead class="thead-light">
 			<tr>
 				<td>Titolo</td>
 				<td>Descrizione</td>
@@ -24,6 +25,7 @@
 				<td>Data fine asta</td>
 				<td>Professione richiesta</td>
 			</tr>
+			</thead>
 			<th:block th:each="asta:${aste}">
 				<tr>
 					<td th:text="${asta.titolo}"></td>

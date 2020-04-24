@@ -116,10 +116,7 @@ public class ProfessionistaController {
 				Professione pro = professionRepo.findById(l).get();
 				//System.out.println(x);
 				Professionista prof = new Professionista(new ProfessionistaId(u,pro));
-				if(professionistRepo.findById(prof.getId()).isPresent()){
-					
-					
-				}else {
+				if(!professionistRepo.findById(prof.getId()).isPresent()){
 					//TRY SAVE
 					System.out.println(prof);
 					professionistRepo.save(prof);

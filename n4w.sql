@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `professionista` (
   `email_utente` varchar(300) NOT NULL,
   `id_professione` int(11) NOT NULL,
   PRIMARY KEY (`email_utente`,`id_professione`),
-  UNIQUE KEY `id_professione` (`id_professione`)
+  KEY `id_professione` (`id_professione`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
