@@ -2,28 +2,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<th:block th:include="fragments/_layout.html :: head"></th:block>
 <title>Asta</title>
 </head>
 <body>
-<h1><p th:text="${asta.titolo}"/></h1>
-	<p th:text="${asta.commento}"/>
-	<table>
-	<tr>
-		<td>Offerente</td>
-		<td>Prezzo offerto (euro)</td>
-	</tr>
-	   <th:block th:each="off : ${offerte}">
-		  <tr>
-		     <td th:text="${off.utente.getEmail()}"></td>
-		     <td th:text="${off.prezzo}"></td>
-		 </tr>
-	   </th:block>
-	</table> 
+<th:block th:include="fragments/_layout.html :: navbar">Thymeleaf did not load correctly</th:block>
+	<div id="container" class="container mt-5">
 	
-	<form method="post" th:action="@{'/pro/faiOfferta/' + ${asta.getIdAsta()}}">
-		<input type="number" name="prezzo">
-		<button type="submit">Fai offerta</button>
+	<h1>
+		<p th:text="${asta.titolo}" />
+	</h1>
+	<p th:text="${asta.commento}" />
+	<table class="table mt-5 text-center">
+		<thead class="table-light">
+			<tr>
+				<td>Offerente</td>
+				<td>Prezzo offerto (euro)</td>
+			</tr>
+		</thead>
+		<tbody class="table-striped table-dark">
+			<th:block th:each="off : ${offerte}">
+				<tr>
+					<td th:text="${off.utente.getEmail()}"></td>
+					<td th:text="${off.prezzo}"></td>
+				</tr>
+			</th:block>
+		</tbody>
+	</table>
+
+	<form method="post"
+		th:action="@{'/pro/faiOfferta/' + ${asta.getIdAsta()}}">
+		<input type="number" th:value="${asta.prezzoPartenza -1}" name="prezzo">
+		<button type="submit" >Fai offerta</button>
 	</form>
-	
+</div>
 </body>
 </html>

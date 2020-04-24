@@ -1,40 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head th:include="fragments/_layout.html :: head">
-	<meta charset="ISO-8859-1">
-	<title>HomePage</title>
+<meta charset="ISO-8859-1">
+<title>HomePage</title>
 
 </head>
 <body>
 
-	<header th:replace="fragments/_layout.html :: navbar">
-		Loading Failed
-	</header>
-	
-	<div id="welcome" class="jumbotron" th:if="${session.loggedUser == null}")>
+	<header th:replace="fragments/_layout.html :: navbar"> Loading
+		Failed </header>
+
+	<div id="welcome" class="jumbotron"
+		th:if="${session.loggedUser == null}" )>
 		<h1>Welcome to Need4Work</h1>
-		<h3><a th:href="@{~/login}">Login</a> to start using the platform</h3>
+		<h3>
+			<a th:href="@{~/login}">Login</a> to start using the platform
+		</h3>
 	</div>
-	<div id="navigate" class="jumbotron" th:if="${session.loggedUser != null}">
+	<div id="navigate" class="container mt-5"
+		th:if="${session.loggedUser != null}">
 		<table class="table mt-2 text-center">
 			<thead class="thead-light">
-			<tr>
-				<td>Titolo</td>
-				<td>Descrizione</td>
-				<td>Prezzo di partenza</td>
-				<td>Data fine asta</td>
-				<td>Professione richiesta</td>
-			</tr>
+				<tr class="thead-dark">
+					<th scope="col" colspan="5" class=" font-weight-bold">Offerte</th>
+				</tr>
+				<tr>
+					<td>Titolo</td>
+					<td>Descrizione</td>
+					<td>Prezzo di partenza</td>
+					<td>Data fine asta</td>
+					<td>Professione richiesta</td>
+				</tr>
 			</thead>
 			<th:block th:each="asta:${aste}">
-				<tr>
-					<td th:text="${asta.titolo}"></td>
-					<td th:text="${asta.commento}"></td>
-					<td th:text="${asta.prezzoPartenza}"></td>
-					<td th:text="${asta.dataFine}"></td>
-					<td th:text="${asta.professioneRichiesta.getTipologia()}"></td>
-					<td><a th:href="@{'pro/inserzioneCercata/' + ${asta.getIdAsta()}}">Visualizza asta</a></td>
-				</tr>
+				<tbody class="table-striped">
+					<tr>
+						<td th:text="${asta.titolo}"></td>
+						<td th:text="${asta.commento}"></td>
+						<td th:text="${asta.prezzoPartenza}"></td>
+						<td th:text="${asta.dataFine}"></td>
+						<td th:text="${asta.professioneRichiesta.getTipologia()}"></td>
+						<td><a
+							th:href="@{'pro/inserzioneCercata/' + ${asta.getIdAsta()}}">Visualizza
+								asta</a></td>
+					</tr>
+				</tbody>
 			</th:block>
 		</table>
 	</div>

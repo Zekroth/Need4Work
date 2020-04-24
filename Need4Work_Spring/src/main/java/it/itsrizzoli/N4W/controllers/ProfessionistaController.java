@@ -174,6 +174,7 @@ public class ProfessionistaController {
 		}
 		model.addAttribute("utente",utente);
 		model.addAttribute("offerte",offerte);
+		
 		return "profiloProfessionista";
 	}
 	

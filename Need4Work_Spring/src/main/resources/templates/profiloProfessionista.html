@@ -6,55 +6,68 @@
 <title>Profilo professionista</title>
 <th:block th:include="fragments/_layout.html" />
 </head>
-<body >
+<body>
 
-		</br> 
+	</br>
 	<div th:object="${session.loggedUser}">
-		<span th:if="${session.loggedUser == null}">
-			<!-- 
+		<span th:if="${session.loggedUser == null}"> <!-- 
 				SEZIONE CARICATA SE UTENTE NON LOGGATO
 			 -->
-			 
+
 			<div class="alert alert-primary" role="alert">
-  				Non sei loggato torna alla pagina di <a th:href="@{~/login}">Login</a>
+				Non sei loggato torna alla pagina di <a th:href="@{~/login}">Login</a>
 			</div>
 		</span>
-		<div class="container" id="userBody" th:unless="${session.loggedUser == null && (param.email == null || param.email == '')}" >
-			
-			<div id=datiUtente >
+		<div class="container" id="userBody"
+			th:unless="${session.loggedUser == null && (param.email == null || param.email == '')}">
+
+			<div id=datiUtente>
 				<h2>Dati Utente</h2>
-				<label ></label>
 			</div>
-			
-			<div id="listeContainer"></div>
-			<div id="professioni" style="width: 20vw">
-				<p class="badge text-wrap badge-info">Professioni dell'utente</p>
-				<div class="embed-responsive embed-responsive-1by1">
-				 	<iframe class="embed-responsive-item"  scrolling="auto" th:src="@{~/dp?email=} + ${session.loggedUser.email}"  >
-				 		<p>No frame support :c</p>
-				 	</iframe>
+
+			<div id="listeContainer">
+				<div id="professioni" style="width: 20vw">
+					<p class="badge text-wrap badge-info">Professioni dell'utente</p>
+					<div class="embed-responsive embed-responsive-1by1">
+						<iframe class="embed-responsive-item" scrolling="auto"
+							th:src="@{~/dp?email=} + ${session.loggedUser.email}">
+							<p>No frame support :c</p>
+						</iframe>
+					</div>
 				</div>
+
+				<h2>
+					Aste a cui hai
+					<th:block th:unless="${session.loggedUser == null}">
+						<th:block th:if="${#session.getAttribute('loggedUser').email == param.email}"
+							th:text="i"></th:block>
+					</th:block>
+					partecipato
+				</h2>
+				<table class="table mt-2 text-center">
+					<thead class="thead-light">
+						<tr>
+							<td>Titolo</td>
+							<td>Descrizione</td>
+						</tr>
+					</thead>
+					<tbody class="table-striped table-dark">
+						<th:block th:each="offerta:${offerte}">
+							<tr>
+								<td th:text="${offerta.getAsta().getTitolo()}"></td>
+								<td th:text="${offerta.getAsta().getCommento()}"></td>
+								<td><a
+									th:href="@{'inserzioneCercata/' + ${offerta.getAsta().getIdAsta()}}">Visualizza
+										asta</a></td>
+							</tr>
+						</th:block>
+					</tbody>
+				</table>
 			</div>
-			
-			
-			<table>
-			<tr>
-				<td>Titolo</td>
-				<td>Descrizione</td>
-			</tr>
-			<th:block th:each="offerta:${offerte}">
-				<tr>
-					<td th:text="${offerta.getAsta().getTitolo()}"></td>
-					<td th:text="${offerta.getAsta().getCommento()}"></td>
-					<td><a th:href="@{'inserzioneCercata/' + ${offerta.getAsta().getIdAsta()}}">Visualizza asta</a></td>
-				</tr>
-			</th:block>
-		</table>
-			
 		</div>
-		
+
 	</div>
-	
-	
+
+
 </body>
 </html>
