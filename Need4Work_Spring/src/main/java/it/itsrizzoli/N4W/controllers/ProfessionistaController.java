@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -77,7 +78,7 @@ public class ProfessionistaController {
 		for (Professione professione : professionList) {
 			userProfessions.add(professione);
 		}
-		System.out.println(professionList.size());
+		//System.out.println(professionList.size());
 		model.addAttribute("professionList", professionList);
 		Utente u = (Utente) session.getAttribute("loggedUser");
 		
@@ -87,7 +88,7 @@ public class ProfessionistaController {
 			userProfessions.removeIf(x ->{
 				
 				boolean result = professionistRepo.findById(new ProfessionistaId(u, x)).isEmpty();
-				System.out.println(x.getTipologia() + " " + result);
+				//System.out.println(x.getTipologia() + " " + result);
 				return result;
 			});
 		}
@@ -96,7 +97,7 @@ public class ProfessionistaController {
 		return "fragments/_FormEditProfessioniUtente";
 	}
 	
-	
+	@Transactional
 	@PostMapping("/edit")
 	public String editProfessionistProfessions(HttpSession session, Model model, @RequestParam("selected") List<String> selected) {
 		
@@ -113,15 +114,17 @@ public class ProfessionistaController {
 				Long l = Long.parseLong(x);
 				
 				Professione pro = professionRepo.findById(l).get();
+				//System.out.println(x);
 				Professionista prof = new Professionista(new ProfessionistaId(u,pro));
 				if(professionistRepo.findById(prof.getId()).isPresent()){
 					
-					professionList.removeIf(y-> y.getId()  == l);
+					
 				}else {
 					//TRY SAVE
-					System.out.println(x);
+					System.out.println(prof);
 					professionistRepo.save(prof);
 				}
+				professionList.removeIf(y-> y.getId()  == l);
 			});
 			professionList.forEach(x->{
 				

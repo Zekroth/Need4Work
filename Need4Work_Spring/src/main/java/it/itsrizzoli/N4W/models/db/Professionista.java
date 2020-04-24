@@ -56,4 +56,9 @@ public class Professionista implements Serializable{
 	}
 	
 	
+	public String toString() {
+		return "[Utente:"+this.getUtente().email+", Professione: "+this.getProfessione().getTipologia()+"]";
+		
+	}
+	
 }
