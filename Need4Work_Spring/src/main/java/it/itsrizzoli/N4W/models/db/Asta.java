@@ -45,11 +45,11 @@ public class Asta implements Serializable{
 	@Column(name="prezzo_chiusura")
 	private Double prezzoChiusura;
 	
-	@Size(min=5,max=100)
+	@Size(min=5,max=100, message="il titolo deve essere lungo da 5 a 100 caratteri")
 	@NotNull
 	private String titolo;
 	
-	@Size(min=30,max=500)
+	@Size(min=30,max=500, message="il commento deve essere lungo da 30 a 500 caratteri")
 	@NotNull
 	private String commento;
 	

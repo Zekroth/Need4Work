@@ -7,9 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<header th:replace="fragments/_layout.html :: navbar">thymeleaf layout loading failed</header>
-<h1>Asta scaduta!</h1>
-<p>Ci dispiace che tu non abbia trovato un professionista adatto</p>
-<a href="/paginaUtenteInserzionista">Clicca qui per tornare alla tua pagina principale</a>
+	<header th:replace="fragments/_layout.html :: navbar">thymeleaf
+		layout loading failed</header>
+	<div class="container mt-4">
+		<h1>Asta scaduta!</h1>
+		<h3>Ci dispiace che tu non abbia trovato un professionista adatto</h3>
+		<br/>
+		<p>Clicca <a href="/paginaUtenteInserzionista">qui</a> per tornare alla
+			tua pagina principale</p>
+	</div>
 </body>
 </html>

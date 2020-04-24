@@ -4,28 +4,45 @@
 <meta charset="UTF-8">
 <title>Profilo utente</title>
 
-<div th:replace="fragments/_layout.html :: head">thymeleaf layout loading failed</div>
+<div th:replace="fragments/_layout.html :: head">thymeleaf layout
+	loading failed</div>
 </head>
 <body>
+
+	<header th:replace="fragments/_layout.html :: navbar">thymeleaf
+		layout loading failed</header>
 	
-	<header th:replace="fragments/_layout.html :: navbar">thymeleaf layout loading failed</header>
-	<h1>Mio profilo</h1>
-	<p th:text="${utente.nome}" />
-	<p th:text="${utente.cognome}" />
-		<a href="/creazioneInserzione"><button>Crea inserzione</button></a>
-		<p>Aste</p>
-		<table>
-			<tr>
-				<td>Titolo</td>
-				<td>Descrizione</td>
-			</tr>
-			<th:block th:each="ins:${asta}">
-				<tr>
-					<td th:text="${ins.titolo}"></td>
-					<td th:text="${ins.commento}"></td>
-					<td><a th:href="@{'visualizza/' + ${ins.getIdAsta()}}">Visualizza asta</a></td>
+	<div id="dataDisplayContainer" class="container mt-3 mb-2">
+		<h1>Mio profilo</h1>
+		<label for="nome" class="mt-2">Nome:</label>
+		<p id="nome" th:text="${utente.nome}" />
+		<label for="cognome">Cognome:</label>
+		<p id="cognome" th:text="${utente.cognome}" />
+		<a href="/creazioneInserzione"><button class="btn btn-primary">Crea inserzione</button></a>
+		</br>
+		<table class="table mt-2 text-center">
+			<thead class="thead-light">
+				<tr class="thead-dark" >
+					<th scope="col" colspan="2" class=" font-weight-bold thead-dark">Aste</th>
 				</tr>
-			</th:block>
+				<tr>
+					<th scope="col">Titolo</th>
+					<th scope="col">Descrizione</th>
+				</tr>
+			</thead>
+			<tbody class="table-striped">
+				<th:block th:each="ins:${asta}">
+					<tr>
+						<td th:text="${ins.titolo}"></td>
+						<td th:text="${ins.commento}"></td>
+						<td><a th:href="@{'visualizza/' + ${ins.getIdAsta()}}"><button class="btn btn-light" style="background-color:#e9ecef;">Visualizza
+								asta</button></a></td>
+					</tr>
+				</th:block>
+			</tbody>
 		</table>
+	</div>
+
+
 </body>
 </html>

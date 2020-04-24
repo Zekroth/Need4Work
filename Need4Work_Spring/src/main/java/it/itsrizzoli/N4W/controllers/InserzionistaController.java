@@ -57,8 +57,9 @@ public class InserzionistaController {
 	private UserJdbcDao jdbcUser;
 	
 	@GetMapping("/creazioneInserzione")
-	public String creazioneInserzione(Asta asta, HttpSession session) {
+	public String creazioneInserzione(Asta asta, HttpSession session, Model model) {
 		Utente u=(Utente) session.getAttribute("loggedUser");
+		model.addAttribute("professionsList", professioneRepository.findAll());
 		if (u==null)
 			return "redirect:/login";
 		return "creazioneInserzione";
@@ -66,9 +67,10 @@ public class InserzionistaController {
 	
 	@PostMapping("/creazioneInserzione")
 	public String postCreazioneInserzione(@Valid Asta asta, @RequestParam ("professione") long professione, BindingResult res, Model model, HttpSession session) {
-		if (res.hasErrors())
+		if (res.hasErrors()) {
+			model.addAttribute("msg", res.getFieldError().getDefaultMessage());
 			return "creazioneInserzione";
-		
+		}
 		java.util.Date d=new java.util.Date();
 		Date date=new Date(d.getTime());
 		asta.setDataInizio(date);
@@ -166,11 +168,14 @@ public class InserzionistaController {
 		return "astaAccettata";
 	}
 	
-	@GetMapping("/visualizzaLavoro/scriviRecensione/{id}")
+	@GetMapping("/scriviRecensione/{id}")
 	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model, HttpSession session) {
 		Utente utente=(Utente) session.getAttribute("loggedUser");
 		if (utente!=null) {
 			Lavoro lavoro=(Lavoro) lavoroRepository.findById(id);
+			if (lavoro.getRecensione()!=null) {
+				return "redirect:/paginaUtenteInserzionista";
+			}
 			model.addAttribute("lavoro",lavoro);
 			return "scriviRecensione";
 		} else {
