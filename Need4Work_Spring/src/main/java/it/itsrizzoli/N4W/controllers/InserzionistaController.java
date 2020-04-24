@@ -166,11 +166,14 @@ public class InserzionistaController {
 		return "astaAccettata";
 	}
 	
-	@GetMapping("/visualizzaLavoro/scriviRecensione/{id}")
+	@GetMapping("/scriviRecensione/{id}")
 	public String scrivi(Recensione recensione, @PathVariable("id") long id, Model model, HttpSession session) {
 		Utente utente=(Utente) session.getAttribute("loggedUser");
 		if (utente!=null) {
 			Lavoro lavoro=(Lavoro) lavoroRepository.findById(id);
+			if (lavoro.getRecensione()!=null) {
+				return "redirect:/paginaUtenteInserzionista";
+			}
 			model.addAttribute("lavoro",lavoro);
 			return "scriviRecensione";
 		} else {
